@@ -1,0 +1,32 @@
+---
+import projects from "../collections/projects.json";
+import PageHeading from "../components/page-heading.astro";
+import Project from "../components/project.astro";
+import Layout from "../layouts/main.astro";
+---
+
+<Layout title="Mes projets">
+  <section class="relative z-20 max-w-2xl mx-auto my-12 px-7 lg:px-0">
+    <PageHeading
+      title="Mes projets"
+      description="Retrouvez ici quelques-uns des projets sur lesquels j'ai travaillé. J'adore créer de nouveaux projets et trouver de nouvelles idées. Je travaille toujours sur quelque chose de nouveau, alors revenez souvent !"
+    />
+
+    <div
+      class="z-50 grid items-stretch w-full grid-cols-1 my-8 gap-7 sm:gap-5 sm:grid-cols-2"
+    >
+      {
+        projects.map((project) => {
+          return (
+            <Project
+              name={project.name}
+              description={project.description}
+              image={project.image}
+              url={project.url}
+            />
+          )
+        })
+      }
+    </div>
+  </section>
+</Layout>

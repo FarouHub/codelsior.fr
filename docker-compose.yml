@@ -1,0 +1,10 @@
+services:
+    astro:
+        image: node:18.19-alpine
+        container_name: astro_codelsior
+        working_dir: /app
+        volumes:
+            - .:/app
+        ports:
+            - "4321:4321"
+        command: sh -c "npm install && npm run dev -- --host 0.0.0.0"

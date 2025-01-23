@@ -1,23 +1,51 @@
 [
-	{
-		"dates": "June 2018 · Present",
-		"role": "Front-end Engineer",
-		"company": "Full Truck Alliance",
-		"description": "Responsible for customer service and CRM system front-end development.",
-		"logo": "/assets/images/experiences/fta.ico"
-	},
-	{
-		"dates": "July 2015 · June 2018",
-		"role": "Front-end Engineer",
-		"company": "YOHO!",
-		"description": "Responsible for mobile front-end development of e-commerce platform.",
-		"logo": "/assets/images/experiences/yoho.ico"
-	},
-	{
-		"dates": "September 2014 · July 2015 ",
-		"role": "Node.JS Developer",
-		"company": "WuLian",
-		"description": "Intern, involved in the development of Internet of Things cloud systems.",
-		"logo": "/assets/images/experiences/wulian.ico"
-	}
+  {
+    "dates": "Septembre 2020 · Maintenant",
+    "role": "CTO · Co-fondateur · Associé",
+    "company": "Bonjour Fun · Sélestat, France",
+    "description": "Développement d'une marketplace en SaaS pour les destinations touristiques. Associé, Stratégie, Gestion de projet, DevOps, Développement web/métier.",
+    "logo": "/assets/images/experiences/bonjour_fun_logo.jpg"
+  },
+  {
+    "dates": "Juin 2021 · Novembre 2023",
+    "role": "IT Specialist",
+    "company": "Tune GmbH · Buggingen, Allemagne",
+    "description": "Responsable de l'infrastructure informatique. Développement modules métiers. Lancement du site e-commerce.",
+    "logo": "/assets/images/experiences/tunebicycleparts_logo.jpg"
+  },
+  {
+    "dates": "Septembre 2018 · Août 2020",
+    "role": "CTO · Freelance",
+    "company": "Greencub · Ste Croix aux mines, France",
+    "description": "Développement web/métier sous Symfony",
+    "logo": "/assets/images/experiences/greencub_logo.jpg"
+  },
+  {
+    "dates": "2015 · Août 2018",
+    "role": "Pilote d'application",
+    "company": "Groupe PSA · Mulhouse, France",
+    "description": "Ce poste se situe à mi-chemin entre le technique et le fonctionnel. Cela signifie que je traite de tous les problèmes qui peuvent survenir au cours de la vie de l'application. Parallèlement à ce poste principal, je suis « responsable de la migration des données ». Je joue ce rôle lorsque nous devons déployer notre ERP dans une usine. Il s'agit de gérer toutes les étapes du transfert des données des anciens systèmes logistiques vers le nouveau. J'ai la responsabilité de construire et de suivre un planning, de définir et d'exécuter des tests, d'apporter une assistance approfondie au client (déplacements sur les sites industriels).",
+    "logo": "/assets/images/experiences/psa.jpg"
+  },
+  {
+    "dates": "Janvier 2012 · 2015",
+    "role": "Développeur Sénior",
+    "company": "Groupe PSA · Mulhouse, France",
+    "description": "Développement d'un ERP visant à la refonte des systèmes logistiques de l'entreprise.",
+    "logo": "/assets/images/experiences/psa.jpg"
+  },
+  {
+    "dates": "Septembre 2010 · Décembre 2021",
+    "role": "Consultant · Développeur JAVA full-stack",
+    "company": "Abylsen · Mulhouse, France",
+    "description": "Développement d'un ERP visant à la refonte des systèmes logistiques de l'entreprise.",
+    "logo": "/assets/images/experiences/abylsen_logo.jpg"
+  },
+  {
+    "dates": "Janvier 2010 · Août 2010 ",
+    "role": "Stage",
+    "company": "Sogeti · Bâle, Suisse",
+    "description": "Exploration des offres Cloud pour les applications de BI.",
+    "logo": "/assets/images/experiences/sogeti_logo.jpg"
+  }
 ]

@@ -1,6 +1,6 @@
 services:
     astro:
-        image: node:18.19-alpine
+        image: node:20-alpine
         container_name: astro_codelsior
         working_dir: /app
         volumes:

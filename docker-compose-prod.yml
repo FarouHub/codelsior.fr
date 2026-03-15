@@ -1,0 +1,16 @@
+services:
+  web:
+    build: .
+    container_name: codelsior-fr
+    restart: unless-stopped
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=codelsior.fr,www.codelsior.fr
+      - LETSENCRYPT_HOST=codelsior.fr,www.codelsior.fr
+      - LETSENCRYPT_EMAIL=contact@codelsior.fr
+
+networks:
+  default:
+    name: nginx-proxy
+    external: true

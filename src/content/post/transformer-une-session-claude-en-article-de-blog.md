@@ -3,7 +3,7 @@ layout: ../../layouts/post.astro
 title: Transformer une session Claude en article de blog (sans fuiter de données)
 description: Un workflow reproductible pour convertir une conversation Claude en post Astro, avec une anonymisation en deux passes et une validation humaine avant publication.
 dateFormatted: Jun 30th, 2026
-draft: true
+draft: false
 ---
 
 J'ai un blog sous Astro et j'utilise Claude au quotidien. Beaucoup de mes

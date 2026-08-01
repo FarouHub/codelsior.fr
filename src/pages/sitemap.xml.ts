@@ -1,9 +1,7 @@
 import { getCollection } from "astro:content";
 import type { APIRoute } from "astro";
 
-// Slash final : le build Astro génère des dossiers (/blog/index.html), donc
-// c'est l'URL qui répond 200 directement, sans passer par une redirection.
-const staticPages = ["/", "/blog/", "/projets/", "/a-propos/"];
+const staticPages = ["/", "/blog", "/projets", "/a-propos"];
 
 function parseDate(dateStr: string) {
 	const [month, day, year] = dateStr.split(" ");
@@ -23,7 +21,7 @@ export const GET: APIRoute = async ({ site }) => {
 	const urls = [
 		...staticPages.map((path) => ({ loc: path, lastmod: null })),
 		...posts.map((post) => ({
-			loc: `/post/${post.id}/`,
+			loc: `/post/${post.id}`,
 			lastmod: parseDate(post.data.dateFormatted),
 		})),
 	];

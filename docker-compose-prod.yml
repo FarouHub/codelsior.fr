@@ -13,8 +13,10 @@ services:
       - VIRTUAL_PORT=80
       - LETSENCRYPT_HOST=codelsior.fr,www.codelsior.fr
       - LETSENCRYPT_EMAIL=contact@codelsior.fr
+    networks:
+      - default
+      - traefik-public
 
 networks:
-  default:
-    name: nginx-proxy
+  traefik-public:
     external: true

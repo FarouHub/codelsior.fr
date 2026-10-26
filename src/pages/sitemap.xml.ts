@@ -16,7 +16,10 @@ function formatDate(date: Date) {
 }
 
 export const GET: APIRoute = async ({ site }) => {
-	const posts = await getCollection("post");
+	const posts = await getCollection(
+		"post",
+		({ data }) => import.meta.env.DEV || !data.draft,
+	);
 
 	const urls = [
 		...staticPages.map((path) => ({ loc: path, lastmod: null })),

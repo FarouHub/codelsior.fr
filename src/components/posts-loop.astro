@@ -1,6 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-const allPosts = await getCollection("post");
+const allPosts = await getCollection(
+  "post",
+  ({ data }) => import.meta.env.DEV || !data.draft,
+);
 
 const { count } = Astro.props;
 

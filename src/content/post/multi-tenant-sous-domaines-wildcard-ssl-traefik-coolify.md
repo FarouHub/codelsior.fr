@@ -3,7 +3,7 @@ layout: ../../layouts/post.astro
 title: "Mini-sites multi-tenant : sous-domaines wildcard, domaines custom et SSL avec Traefik + Coolify"
 description: "Retour d'expérience sur une architecture multi-tenant SaaS : routing par sous-domaine, domaines personnalisés clients, et émission automatique des certificats SSL — jusqu'au débogage en production."
 dateFormatted: Jun 30th, 2026
-draft: true
+draft: false
 ---
 
 Sur un SaaS de réservation d'activités, je voulais offrir à chaque client

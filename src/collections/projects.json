@@ -6,6 +6,60 @@
     "url": "https://www.bonjour.fun"
   },
   {
+    "name": "Experience Côte d'Azur",
+    "description": "Marketplaces SaaS",
+    "image": "/assets/images/projects/projet_experience_cote_azur.jpg",
+    "url": "https://www.experiencecotedazur.com"
+  },
+  {
+    "name": "Bonjour Alsace",
+    "description": "Marketplaces SaaS",
+    "image": "/assets/images/projects/projet_bonjour_alsace.jpg",
+    "url": "https://www.bonjour.alsace"
+  },
+  {
+    "name": "Oise Fun",
+    "description": "Marketplaces SaaS",
+    "image": "/assets/images/projects/projet_oise_fun.jpg",
+    "url": "https://www.oise.fun"
+  },
+  {
+    "name": "Exploregion",
+    "description": "Marketplaces SaaS",
+    "image": "/assets/images/projects/projet_exploregion.jpg",
+    "url": "https://www.exploregion.com"
+  },
+  {
+    "name": "Résa Vignerons Indépendants",
+    "description": "Marketplaces SaaS",
+    "image": "/assets/images/projects/projet_resa_vignerons.jpg",
+    "url": "https://www.resa-vignerons-independants.com"
+  },
+  {
+    "name": "Perpignan Expériences",
+    "description": "Marketplaces SaaS",
+    "image": "/assets/images/projects/projet_perpignan_experiences.jpg",
+    "url": "https://www.perpignan-experiences.com"
+  },
+  {
+    "name": "Tourisme Agadir Souss Massa",
+    "description": "Marketplaces SaaS",
+    "image": "/assets/images/projects/projet_tourisme_agadir.jpg",
+    "url": "https://tourismeagadirsoussmassa.com"
+  },
+  {
+    "name": "Tarn Expériences",
+    "description": "Marketplaces SaaS",
+    "image": "/assets/images/projects/projet_tarn_experiences.jpg",
+    "url": "https://www.tarn-experiences.fr"
+  },
+  {
+    "name": "La Vienne Expériences",
+    "description": "Marketplaces SaaS",
+    "image": "/assets/images/projects/projet_lavienne_experiences.jpg",
+    "url": "https://www.lavienne-experiences.com"
+  },
+  {
     "name": "Tune",
     "description": "Migration Shopware vers Sylius",
     "image": "/assets/images/projects/tune.jpg",

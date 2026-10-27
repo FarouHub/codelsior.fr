@@ -1,15 +1,20 @@
 ---
 import experiences from "../collections/experiences.json";
 import AboutExperience from "../components/about-experience.astro";
+import CtaBanner from "../components/landing/cta-banner.astro";
 import PageHeading from "../components/page-heading.astro";
+import { site } from "../config";
 import Layout from "../layouts/main.astro";
 ---
 
-<Layout title="A propos - Codelsior">
+<Layout
+  title="À propos de Nicolas Sittler - Codelsior"
+  description="Développeur senior depuis 15 ans, CTO et co-fondateur de Bonjour Fun : mon parcours, de l'ERP de PSA aux marketplaces SaaS développées avec l'IA."
+>
   <section class="relative z-20 max-w-2xl mx-auto my-12 px-7 lg:px-0">
     <PageHeading
-      title="A propos"
-      description="Hello 👋 CTO & co-fondateur de Bonjour Fun, développeur sénior avec plus de 15 ans d'expérience dans le développement logiciel et la gestion de projets SI."
+      title="À propos"
+      description="Hello 👋 Je suis Nicolas, CTO et co-fondateur de Bonjour Fun, développeur senior avec plus de 15 ans d'expérience en développement logiciel et en gestion de projets SI. Aujourd'hui, je mets cette expérience et le développement assisté par l'IA au service de vos projets."
     />
 
     <img src="/assets/images/about.jpg" class="relative z-30 w-full my-10 rounded-xl" />
@@ -44,17 +49,22 @@ import Layout from "../layouts/main.astro";
       }
     </div>
 
-    <h2 class="mt-5 mb-2 text-2xl font-bold lg:mt-10 sm:mt-6 dark:text-neutral-200">Gardons contact</h2>
+    <h2 class="mt-5 mb-2 text-2xl font-bold lg:mt-10 sm:mt-6 dark:text-neutral-200">Travaillons ensemble</h2>
     <p
       class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
     >
-      Suivez moi en direct sur <a
+      {site.availability}, en remote ou sur site en Alsace. Découvrez <a
+        href="/services"
+        class="underline text-brand dark:text-accent">mes services</a
+      >, écrivez-moi à <a
+        href={`mailto:${site.email}`}
+        class="underline text-brand dark:text-accent">{site.email}</a
+      > ou suivez-moi sur <a
         href="https://x.com/nisittler"
         target="_blank"
-        class="text-indigo-600 underline">Twitter</a
-      > afin d'être à jour de mes dernières actualités ou vous pouvez m'envoyer un <a href="mailto:nicolas.sittler@codelsior.fr" class="text-indigo-600 underline"
-        >email</a
+        class="underline text-brand dark:text-accent">X</a
       >.
     </p>
   </section>
+  <CtaBanner />
 </Layout>

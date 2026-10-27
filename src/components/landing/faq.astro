@@ -1,0 +1,27 @@
+---
+interface Props {
+	items: { q: string; a: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<div
+  class="border-t divide-y divide-neutral-200 border-neutral-200 dark:divide-neutral-800 dark:border-neutral-800"
+>
+  {
+    items.map((item) => (
+      <details class="py-5 group">
+        <summary class="flex items-center justify-between gap-4 text-base font-semibold list-none cursor-pointer text-neutral-900 dark:text-neutral-100">
+          {item.q}
+          <span class="flex-none text-xl duration-200 ease-out text-brand dark:text-accent group-open:rotate-45">
+            +
+          </span>
+        </summary>
+        <p class="mt-3 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+          {item.a}
+        </p>
+      </details>
+    ))
+  }
+</div>

@@ -1,0 +1,324 @@
+---
+import { getCollection } from "astro:content";
+import projects from "../../collections/projects.json";
+import {
+	families,
+	type Service,
+	services,
+	serviceUrl,
+} from "../../collections/services";
+import BookingButton from "../../components/landing/booking-button.astro";
+import CheckList from "../../components/landing/check-list.astro";
+import CtaBanner from "../../components/landing/cta-banner.astro";
+import Faq from "../../components/landing/faq.astro";
+import ItemGrid from "../../components/landing/item-grid.astro";
+import MaintenancePlans from "../../components/landing/maintenance-plans.astro";
+import OfferCard from "../../components/landing/offer-card.astro";
+import SectionTitle from "../../components/landing/section-title.astro";
+import ServiceCard from "../../components/landing/service-card.astro";
+import Testimonials from "../../components/landing/testimonials.astro";
+import Project from "../../components/project.astro";
+import { site } from "../../config";
+import Layout from "../../layouts/main.astro";
+
+export function getStaticPaths() {
+	return services.map((service) => ({
+		params: { slug: service.slug },
+		props: { service },
+	}));
+}
+
+interface Props {
+	service: Service;
+}
+
+const { service } = Astro.props;
+const family = families.find((f) => f.id === service.family);
+const relatedProjects = projects
+	.filter((project) => project.services.includes(service.slug))
+	.slice(0, 3);
+const relatedPosts = (
+	await getCollection(
+		"post",
+		({ data }) =>
+			(import.meta.env.DEV || !data.draft) &&
+			data.services.includes(service.slug),
+	)
+).slice(0, 3);
+const otherServices = services.filter((s) => s.slug !== service.slug);
+const pageUrl = new URL(serviceUrl(service), site.url).href;
+
+const jsonLd = [
+	{
+		"@context": "https://schema.org",
+		"@type": "Service",
+		name: service.menuLabel,
+		description: service.metaDescription,
+		url: pageUrl,
+		areaServed: "FR",
+		provider: {
+			"@type": "ProfessionalService",
+			name: site.name,
+			url: site.url,
+			email: site.email,
+			founder: { "@type": "Person", name: site.owner },
+		},
+	},
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		mainEntity: service.faq.map((item) => ({
+			"@type": "Question",
+			name: item.q,
+			acceptedAnswer: { "@type": "Answer", text: item.a },
+		})),
+	},
+	{
+		"@context": "https://schema.org",
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{ "@type": "ListItem", position: 1, name: "Accueil", item: site.url },
+			{
+				"@type": "ListItem",
+				position: 2,
+				name: "Services",
+				item: `${site.url}/services`,
+			},
+			{
+				"@type": "ListItem",
+				position: 3,
+				name: service.menuLabel,
+				item: pageUrl,
+			},
+		],
+	},
+];
+---
+
+<Layout
+  title={service.seoTitle}
+  description={service.metaDescription}
+  jsonLd={jsonLd}
+>
+  <div class="relative z-20 space-y-24 md:space-y-32">
+    <section class="max-w-4xl mx-auto mt-12 px-7 md:mt-20 lg:px-0">
+      <nav class="mb-6 text-xs text-neutral-500 dark:text-neutral-400">
+        <a href="/services" class="hover:text-neutral-900 dark:hover:text-white"
+          >Services</a
+        >
+        <span class="mx-1">/</span>
+        <span class="font-semibold text-accent-dark dark:text-accent"
+          >{family?.name}</span
+        >
+      </nav>
+      <h1
+        class="max-w-3xl text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl text-neutral-900 dark:text-white"
+      >
+        {service.headline}
+      </h1>
+      <p
+        class="max-w-2xl mt-6 text-lg leading-relaxed md:text-xl text-neutral-600 dark:text-neutral-400"
+      >
+        {service.subheadline}
+      </p>
+      <p class="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
+        <span class="font-semibold text-neutral-700 dark:text-neutral-200"
+          >Pour :</span
+        >
+        {service.audience}
+      </p>
+      <div class="flex flex-col gap-3 mt-8 sm:flex-row sm:items-center">
+        <BookingButton event={service.calEvent} />
+        <a
+          href={service.offer ? "#offre" : "#disponibilite"}
+          class="inline-flex items-center justify-center px-5 py-3 text-sm font-semibold duration-300 ease-out border rounded-full border-neutral-300 text-neutral-900 hover:border-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:border-white"
+        >
+          {service.offer ? "Voir l'offre de démarrage" : "Voir mes disponibilités"}
+        </a>
+      </div>
+      <p
+        class="inline-flex items-center gap-2 mt-6 text-xs font-medium text-neutral-500 dark:text-neutral-400"
+      >
+        <span class="relative flex w-2 h-2">
+          <span
+            class="absolute inline-flex w-full h-full rounded-full opacity-75 animate-ping bg-accent"
+          ></span>
+          <span class="relative inline-flex w-2 h-2 rounded-full bg-accent-dark"
+          ></span>
+        </span>
+        {site.availability} · {site.area}
+      </p>
+    </section>
+
+    <section class="max-w-4xl mx-auto px-7 lg:px-0">
+      <SectionTitle eyebrow="Ça vous parle ?" title="Vous vous reconnaissez ?" />
+      <ItemGrid items={service.pains} tone="pain" />
+    </section>
+
+    <section class="max-w-4xl mx-auto px-7 lg:px-0">
+      <SectionTitle eyebrow="Ce que je fais" title="Ce que je fais pour vous" />
+      <ItemGrid items={service.deliverables} />
+    </section>
+
+    {
+      service.comparison && (
+        <section class="max-w-4xl mx-auto px-7 lg:px-0">
+          <SectionTitle
+            eyebrow="Le vrai changement"
+            title={`L'IA change l'équation : ${site.savingsClaim}.`}
+          />
+          <div class="overflow-x-auto border rounded-2xl border-neutral-200 dark:border-neutral-800">
+            <table class="w-full text-sm text-left">
+              <thead>
+                <tr class="border-b border-neutral-200 dark:border-neutral-800">
+                  <th class="p-4" />
+                  <th class="p-4 font-semibold text-neutral-500 dark:text-neutral-400">
+                    Agence classique
+                  </th>
+                  <th class="p-4 font-bold text-brand dark:text-accent bg-brand/5 dark:bg-accent/10">
+                    Avec moi + l'IA
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {service.comparison.rows.map((row) => (
+                  <tr class="border-b last:border-b-0 border-neutral-200 dark:border-neutral-800">
+                    <th class="p-4 font-semibold text-neutral-900 dark:text-neutral-100">
+                      {row.label}
+                    </th>
+                    <td class="p-4 text-neutral-600 dark:text-neutral-400">
+                      {row.agency}
+                    </td>
+                    <td class="p-4 font-semibold text-neutral-900 dark:text-white bg-brand/5 dark:bg-accent/10">
+                      {row.me}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-4 text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
+            <span class="font-semibold">Comment je calcule :</span>{" "}
+            {service.comparison.method}
+          </p>
+        </section>
+      )
+    }
+
+    <section class="max-w-4xl mx-auto px-7 lg:px-0">
+      <SectionTitle eyebrow="Méthode" title="Comment on travaille ensemble" />
+      <ItemGrid items={service.process} numbered />
+    </section>
+
+    {
+      service.offer && (
+        <section id="offre" class="max-w-4xl mx-auto scroll-mt-24 px-7 lg:px-0">
+          <OfferCard offer={service.offer} event={service.calEvent} />
+        </section>
+      )
+    }
+
+    {
+      service.availability && (
+        <section
+          id="disponibilite"
+          class="max-w-4xl mx-auto scroll-mt-24 px-7 lg:px-0"
+        >
+          <div class="p-8 border-2 rounded-3xl border-brand dark:border-accent">
+            <p class="text-xs font-semibold tracking-widest uppercase text-accent-dark dark:text-accent">
+              Disponibilité
+            </p>
+            <h2 class="mt-2 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+              {site.availability}
+            </h2>
+            <CheckList items={service.availability} class="mt-5" />
+            <BookingButton event={service.calEvent} class="mt-6" />
+          </div>
+        </section>
+      )
+    }
+
+    {service.showMaintenance && <MaintenancePlans />}
+
+    <section class="max-w-4xl mx-auto px-7 lg:px-0">
+      <div class="grid items-center grid-cols-1 gap-10 md:grid-cols-5">
+        <img
+          src="/assets/images/nicolas-codelsior.jpg"
+          alt={site.owner}
+          loading="lazy"
+          class="w-full max-w-xs mx-auto md:col-span-2 rounded-2xl"
+        />
+        <div class="md:col-span-3">
+          <SectionTitle
+            eyebrow="Pourquoi moi"
+            title={`${site.owner}, développeur senior augmenté par l'IA`}
+          />
+          <CheckList items={service.why} />
+          <a
+            href="/a-propos"
+            class="inline-block mt-5 text-sm font-semibold text-brand dark:text-accent hover:underline"
+          >
+            Mon parcours →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Testimonials service={service.slug} />
+
+    {
+      relatedProjects.length > 0 && (
+        <section class="max-w-4xl mx-auto px-7 lg:px-0">
+          <SectionTitle eyebrow="Réalisations" title="Ce que j'ai déjà construit" />
+          <div class="grid items-stretch w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7">
+            {relatedProjects.map((project) => (
+              <Project
+                name={project.name}
+                description={project.description}
+                image={project.image}
+                url={project.url}
+              />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      relatedPosts.length > 0 && (
+        <section class="max-w-4xl mx-auto px-7 lg:px-0">
+          <SectionTitle eyebrow="Blog" title="Pour aller plus loin" />
+          <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+            {relatedPosts.map((post) => (
+              <a
+                href={`/post/${post.id}`}
+                class="p-6 duration-300 ease-out border border-dashed rounded-2xl border-neutral-300 dark:border-neutral-700 hover:-translate-y-1 hover:border-brand dark:hover:border-accent"
+              >
+                <span class="block text-base font-bold leading-snug text-neutral-900 dark:text-neutral-100">
+                  {post.data.title}
+                </span>
+                <span class="block mt-2 text-sm text-neutral-600 line-clamp-3 dark:text-neutral-400">
+                  {post.data.description}
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <section class="max-w-4xl mx-auto px-7 lg:px-0">
+      <SectionTitle eyebrow="FAQ" title="Questions fréquentes" />
+      <Faq items={service.faq} />
+    </section>
+
+    <CtaBanner title={service.ctaTitle} event={service.calEvent} />
+
+    <section class="max-w-4xl mx-auto px-7 lg:px-0">
+      <SectionTitle title="Mes autres services" />
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        {otherServices.map((other) => <ServiceCard service={other} />)}
+      </div>
+    </section>
+  </div>
+</Layout>

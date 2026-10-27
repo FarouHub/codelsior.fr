@@ -1,0 +1,81 @@
+---
+import type { Offer } from "../../collections/services";
+import { site } from "../../config";
+import BookingButton from "./booking-button.astro";
+import CheckList from "./check-list.astro";
+
+interface Props {
+	offer: Offer;
+	event: string;
+}
+
+const { offer, event } = Astro.props;
+---
+
+<div
+  class="relative overflow-hidden border-2 rounded-3xl border-brand dark:border-accent"
+>
+  <div class="grid grid-cols-1 md:grid-cols-5">
+    <div
+      class="p-8 text-white md:col-span-2 bg-brand dark:bg-neutral-900 dark:text-neutral-100"
+    >
+      <p
+        class="text-xs font-semibold tracking-widest uppercase text-accent"
+      >
+        Offre de démarrage
+      </p>
+      <h3 class="mt-2 text-2xl font-bold">{offer.name}</h3>
+      <p class="mt-1 text-sm text-white/70 dark:text-neutral-400">
+        {offer.duration}
+      </p>
+      <div class="mt-6">
+        {
+          offer.launchPrice ? (
+            <>
+              <p class="text-sm line-through text-white/60 dark:text-neutral-500">
+                {offer.price} HT
+              </p>
+              <p class="text-4xl font-bold">
+                {offer.launchPrice}
+                <span class="text-base font-medium"> HT</span>
+              </p>
+              <p class="inline-block px-2 py-1 mt-2 text-xs font-semibold rounded-full bg-accent text-brand">
+                Prix de lancement · {site.launchSlots} premiers clients
+              </p>
+            </>
+          ) : (
+            <p class="text-4xl font-bold">
+              {offer.price}
+              <span class="text-base font-medium"> HT</span>
+            </p>
+          )
+        }
+        {
+          offer.priceDetail && (
+            <p class="mt-3 text-xs text-white/70 dark:text-neutral-400">
+              Prix standard : {offer.price} HT {offer.priceDetail}
+            </p>
+          )
+        }
+      </div>
+    </div>
+    <div class="p-8 bg-white md:col-span-3 dark:bg-neutral-950">
+      <p class="mb-4 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+        Ce que vous obtenez
+      </p>
+      <CheckList items={offer.includes} />
+      {
+        offer.note && (
+          <p class="mt-5 text-sm font-medium text-accent-dark dark:text-accent">
+            {offer.note}
+          </p>
+        )
+      }
+      <BookingButton
+        event={event}
+        text="En parler lors d'un appel gratuit"
+        class="mt-6"
+      />
+    </div>
+  </div>
+</div>

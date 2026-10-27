@@ -1,0 +1,32 @@
+---
+interface Props {
+	items: string[];
+	class?: string;
+}
+
+const { items, class: className } = Astro.props;
+---
+
+<ul class:list={["space-y-2", className]}>
+  {
+    items.map((item) => (
+      <li class="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-300">
+        <svg
+          class="flex-none w-5 h-5 text-accent-dark dark:text-accent"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m4.5 12.75 6 6 9-13.5"
+          />
+        </svg>
+        <span>{item}</span>
+      </li>
+    ))
+  }
+</ul>

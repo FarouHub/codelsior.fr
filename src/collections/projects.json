@@ -3,72 +3,119 @@
     "name": "Bonjour Fun",
     "description": "Marketplaces SaaS",
     "image": "/assets/images/projects/projet_bonjour_fun.jpg",
-    "url": "https://www.bonjour.fun"
+    "url": "https://www.bonjour.fun",
+    "services": [
+      "projet-sur-mesure-ia",
+      "hebergement-devops"
+    ]
   },
   {
     "name": "Experience Côte d'Azur",
     "description": "Marketplaces SaaS",
     "image": "/assets/images/projects/projet_experience_cote_azur.jpg",
-    "url": "https://www.experiencecotedazur.com"
+    "url": "https://www.experiencecotedazur.com",
+    "services": [
+      "projet-sur-mesure-ia",
+      "hebergement-devops"
+    ]
   },
   {
     "name": "Bonjour Alsace",
     "description": "Marketplaces SaaS",
     "image": "/assets/images/projects/projet_bonjour_alsace.jpg",
-    "url": "https://www.bonjour.alsace"
+    "url": "https://www.bonjour.alsace",
+    "services": [
+      "projet-sur-mesure-ia",
+      "hebergement-devops"
+    ]
   },
   {
     "name": "Oise Fun",
     "description": "Marketplaces SaaS",
     "image": "/assets/images/projects/projet_oise_fun.jpg",
-    "url": "https://www.oise.fun"
+    "url": "https://www.oise.fun",
+    "services": [
+      "projet-sur-mesure-ia",
+      "hebergement-devops"
+    ]
   },
   {
     "name": "Exploregion",
     "description": "Marketplaces SaaS",
     "image": "/assets/images/projects/projet_exploregion.jpg",
-    "url": "https://www.exploregion.com"
+    "url": "https://www.exploregion.com",
+    "services": [
+      "projet-sur-mesure-ia",
+      "hebergement-devops"
+    ]
   },
   {
     "name": "Résa Vignerons Indépendants",
     "description": "Marketplaces SaaS",
     "image": "/assets/images/projects/projet_resa_vignerons.jpg",
-    "url": "https://www.resa-vignerons-independants.com"
+    "url": "https://www.resa-vignerons-independants.com",
+    "services": [
+      "projet-sur-mesure-ia",
+      "hebergement-devops"
+    ]
   },
   {
     "name": "Perpignan Expériences",
     "description": "Marketplaces SaaS",
     "image": "/assets/images/projects/projet_perpignan_experiences.jpg",
-    "url": "https://www.perpignan-experiences.com"
+    "url": "https://www.perpignan-experiences.com",
+    "services": [
+      "projet-sur-mesure-ia",
+      "hebergement-devops"
+    ]
   },
   {
     "name": "Tourisme Agadir Souss Massa",
     "description": "Marketplaces SaaS",
     "image": "/assets/images/projects/projet_tourisme_agadir.jpg",
-    "url": "https://tourismeagadirsoussmassa.com"
+    "url": "https://tourismeagadirsoussmassa.com",
+    "services": [
+      "projet-sur-mesure-ia",
+      "hebergement-devops"
+    ]
   },
   {
     "name": "Tarn Expériences",
     "description": "Marketplaces SaaS",
     "image": "/assets/images/projects/projet_tarn_experiences.jpg",
-    "url": "https://www.tarn-experiences.fr"
+    "url": "https://www.tarn-experiences.fr",
+    "services": [
+      "projet-sur-mesure-ia",
+      "hebergement-devops"
+    ]
   },
   {
     "name": "La Vienne Expériences",
     "description": "Marketplaces SaaS",
     "image": "/assets/images/projects/projet_lavienne_experiences.jpg",
-    "url": "https://www.lavienne-experiences.com"
+    "url": "https://www.lavienne-experiences.com",
+    "services": [
+      "projet-sur-mesure-ia",
+      "hebergement-devops"
+    ]
   },
   {
     "name": "Tune",
     "description": "Migration Shopware vers Sylius",
     "image": "/assets/images/projects/tune.jpg",
-    "url": "https://www.tune.de"
+    "url": "https://www.tune.de",
+    "services": [
+      "renfort-developpeur",
+      "souverainete-open-source"
+    ]
   },
   {
     "name": "Lightweight",
     "description": "Montée de version Magento",
     "image": "/assets/images/projects/lightweight.jpg",
-    "url": "https://shop.lightweight.info"
+    "url": "https://shop.lightweight.info",
+    "services": [
+      "renfort-developpeur"
+    ]
   }
 ]

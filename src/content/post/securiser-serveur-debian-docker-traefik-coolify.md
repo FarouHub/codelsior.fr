@@ -4,6 +4,7 @@ title: "Durcir un serveur Debian sous Docker, Traefik et Coolify"
 description: "Mises à jour, SSH par clé, firewall face à Docker qui contourne UFW, hardening du daemon, et la vraie question : votre base de données est-elle exposée sur internet ? Retour sur une session de durcissement, corrections de terrain incluses."
 dateFormatted: Aug 1st, 2026
 draft: false
+services: [hebergement-devops, souverainete-open-source]
 ---
 
 Un serveur qui tourne bien n'est pas un serveur sécurisé. Le mien fonctionnait :

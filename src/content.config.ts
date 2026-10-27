@@ -8,6 +8,9 @@ const postCollection = defineCollection({
 		description: z.string(),
 		dateFormatted: z.string(),
 		draft: z.boolean().default(false),
+		// Slugs des services (src/collections/services.ts) auxquels l'article
+		// est rattaché : il est alors listé sur leurs landings.
+		services: z.array(z.string()).default([]),
 	}),
 });
 

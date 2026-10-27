@@ -1,25 +1,79 @@
 ---
+import menus from "../collections/menu.json";
+import { services, serviceUrl } from "../collections/services";
+import BookingButton from "../components/landing/booking-button.astro";
 import Logo from "../components/logo.astro";
+import { site } from "../config";
 ---
 
-<section
-  class="text-gray-700 bg-white border-t sm:mt-20 dark:bg-neutral-950 border-neutral-200 dark:border-neutral-800"
+<footer
+  class="relative z-20 mt-24 bg-white border-t dark:bg-neutral-950 border-neutral-200 dark:border-neutral-800"
 >
   <div
-    class="container flex flex-col items-center py-8 mx-auto px-7 max-w-7xl sm:flex-row"
+    class="grid max-w-5xl grid-cols-1 gap-10 py-12 mx-auto px-7 md:grid-cols-4"
   >
-    <Logo />
-    <p
-      class="mt-4 text-sm text-neutral-700 dark:text-neutral-100 sm:ml-4 sm:pl-4 sm:border-l sm:border-neutral-300 dark:sm:border-neutral-700 sm:mt-0"
-    >
-      © {new Date().getFullYear()} Codelsior
+    <div class="md:col-span-2">
+      <Logo />
+      <p class="max-w-sm mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+        {site.owner}, développeur freelance senior augmenté par l'IA.
+        {site.area}.
+      </p>
+      <a
+        href={`mailto:${site.email}`}
+        class="inline-block mt-4 text-sm font-semibold text-brand dark:text-accent hover:underline"
+      >
+        {site.email}
+      </a>
+      <div class="mt-5">
+        <BookingButton text="Prendre RDV" />
+      </div>
+    </div>
+    <div>
+      <p class="mb-3 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+        Services
+      </p>
+      <ul class="space-y-2">
+        {
+          services.map((service) => (
+            <li>
+              <a
+                href={serviceUrl(service)}
+                class="text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
+              >
+                {service.menuLabel}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <p class="mb-3 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+        Navigation
+      </p>
+      <ul class="space-y-2">
+        {
+          menus.map((menu) => (
+            <li>
+              <a
+                href={menu.url}
+                class="text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
+              >
+                {menu.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  <div
+    class="flex flex-col items-center justify-between max-w-5xl gap-4 py-6 mx-auto border-t px-7 sm:flex-row border-neutral-200 dark:border-neutral-800"
+  >
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      © {new Date().getFullYear()} {site.name}
     </p>
-    <span
-      class="inline-flex justify-center mt-4 space-x-5 sm:ml-auto sm:mt-0 sm:justify-start"
-    >
-
-  
-
+    <span class="inline-flex space-x-5">
       <a
         href="https://x.com/nisittler"
         target="_blank"
@@ -58,7 +112,6 @@ import Logo from "../components/logo.astro";
             clip-rule="evenodd"></path></svg
         >
       </a>
-
     </span>
   </div>
-</section>
+</footer>

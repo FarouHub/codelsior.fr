@@ -25,6 +25,9 @@ Package manager is **pnpm** (9.12.2). Node version: 20 (see `.node-version`).
 - `src/components/` — Astro server-side components. `home/` subfolder contains homepage sections.
 - `src/content/post/` — Markdown blog posts using Astro Content Collections. Schema defined in `src/content/config.js` (title, description, dateFormatted).
 - `src/collections/` — Static JSON data files (`menu.json`, `projects.json`, `experiences.json`) consumed by components.
+- `src/collections/services.ts` — The 5 commercial services (copy, offers, FAQ) in 3 families; drives `/services/[slug]` landings, home, menu, footer and sitemap. Projects (`services` field in `projects.json`) and posts (`services` frontmatter) are tagged with service slugs to appear on the matching landing.
+- `src/config.ts` — Contact email, availability, savings claim, Cal.com booking URLs and Umami settings.
+- `src/components/landing/` — Reusable landing sections (booking button, offer card, FAQ, CTA banner, testimonials hidden while `testimonials.ts` is empty).
 - `src/assets/css/main.css` — Tailwind base + custom CSS animations (dark mode, sticky header).
 - `src/assets/js/main.js` — Client-side JS for dark mode toggle, sticky header, and mobile menu.
 

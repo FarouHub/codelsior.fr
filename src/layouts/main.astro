@@ -2,15 +2,49 @@
 import Footer from "../components/footer.astro";
 import Header from "../components/header.astro";
 import SquareLines from "../components/square-lines.astro";
-const { title } = Astro.props;
+import { site, umami } from "../config";
+
+interface Props {
+	title: string;
+	description?: string;
+	jsonLd?: object[];
+}
+
+const {
+	title,
+	description = "Développeur freelance senior augmenté par l'IA : logiciels sur mesure, automatisation, souveraineté numérique, renfort d'équipe et DevOps. Alsace, partout en France.",
+	jsonLd = [],
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL("/assets/images/cover.png", site.url).href;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {
+      jsonLd.map((data) => (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(data)} />
+      ))
+    }
+    {
+      umami.src && umami.websiteId && (
+        <script is:inline defer src={umami.src} data-website-id={umami.websiteId} />
+      )
+    }
 
     <!-- Used to add dark mode right away, adding here prevents any flicker -->
     <script is:inline>
@@ -41,6 +75,7 @@ const { title } = Astro.props;
     <slot />
     <Footer />
     <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/cal.js"></script>
     <Fragment set:html={import.meta.env.FOOTER_INJECT} />
   </body>
 </html>

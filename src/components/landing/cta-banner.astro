@@ -1,0 +1,47 @@
+---
+import { booking, site } from "../../config";
+import BookingButton from "./booking-button.astro";
+
+interface Props {
+	title?: string;
+	text?: string;
+	event?: string;
+}
+
+const {
+	title = "Parlons de votre projet.",
+	text = "30 minutes, gratuit et sans engagement. Vous repartez avec un avis franc et un ordre de prix.",
+	event = booking.defaultEvent,
+} = Astro.props;
+---
+
+<section class="max-w-4xl mx-auto px-7 lg:px-0">
+  <div
+    class="relative px-8 py-12 overflow-hidden text-center text-white rounded-3xl bg-brand sm:px-12"
+  >
+    <div
+      class="absolute rounded-full -top-24 -right-24 w-72 h-72 bg-accent/20 blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute rounded-full -bottom-24 -left-24 w-72 h-72 bg-brand-light blur-3xl"
+    >
+    </div>
+    <div class="relative">
+      <h2 class="text-2xl font-bold sm:text-3xl">{title}</h2>
+      <p class="max-w-xl mx-auto mt-3 text-white/80">{text}</p>
+      <div class="flex flex-col items-center justify-center gap-3 mt-8 sm:flex-row">
+        <BookingButton
+          event={event}
+          class="bg-accent! text-brand! border-accent! hover:bg-white! hover:border-white!"
+        />
+        <a
+          href={`mailto:${site.email}`}
+          class="text-sm font-medium underline text-white/80 underline-offset-4 hover:text-white"
+        >
+          ou écrivez-moi : {site.email}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,9 +1,11 @@
 ---
+import CtaBanner from "../components/landing/cta-banner.astro";
 import Layout from "./main.astro";
+
 const { frontmatter } = Astro.props;
 ---
 
-<Layout title={frontmatter.title }>
+<Layout title={frontmatter.title} description={frontmatter.description}>
   <main
     class="relative z-30 max-w-4xl pb-1 mx-auto mt-10 bg-white dark:bg-neutral-950 md:rounded-t-md text-neutral-900"
   >
@@ -31,4 +33,8 @@ const { frontmatter } = Astro.props;
       <slot />
     </article>
   </main>
+  <CtaBanner
+    title="Un projet en tête ?"
+    text="Je mets cette expérience au service de vos projets. 30 minutes, gratuit et sans engagement."
+  />
 </Layout>

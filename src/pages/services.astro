@@ -1,0 +1,27 @@
+---
+import CtaBanner from "../components/landing/cta-banner.astro";
+import Families from "../components/landing/families.astro";
+import PageHeading from "../components/page-heading.astro";
+import Layout from "../layouts/main.astro";
+---
+
+<Layout
+  title="Services : logiciel sur mesure, IA, souveraineté, renfort, DevOps - Codelsior"
+  description="Construire vos outils avec l'IA, automatiser vos processus, migrer vers l'open source et un hébergement européen, renforcer votre équipe ou votre infra : découvrez mes 5 services."
+>
+  <div class="relative z-20 space-y-24">
+    <section class="max-w-4xl mx-auto mt-12 px-7 lg:px-0">
+      <PageHeading
+        title="Mes services"
+        description="Cinq façons de travailler ensemble, regroupées en trois familles. Chacune commence par un appel découverte gratuit de 30 minutes."
+      />
+      <div class="mt-12">
+        <Families />
+      </div>
+    </section>
+    <CtaBanner
+      title="Vous ne savez pas par où commencer ?"
+      text="Décrivez-moi votre situation en 30 minutes : je vous oriente vers la bonne approche, même si ce n'est pas moi."
+    />
+  </div>
+</Layout>

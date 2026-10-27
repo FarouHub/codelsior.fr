@@ -4,6 +4,7 @@ title: Synchroniser un projet Lovable avec GitHub (et pousser ses modifs locales
 description: Comprendre le two-way sync de Lovable, gérer le cas tordu de deux repos séparés, et savoir quoi faire quand la synchronisation se bloque.
 dateFormatted: Jun 30th, 2026
 draft: false
+services: [projet-sur-mesure-ia]
 ---
 
 Quand on commence à travailler sérieusement avec [Lovable](https://lovable.dev),

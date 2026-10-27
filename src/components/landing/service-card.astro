@@ -1,0 +1,41 @@
+---
+import { type Service, serviceUrl } from "../../collections/services";
+
+interface Props {
+	service: Service;
+}
+
+const { service } = Astro.props;
+---
+
+<a
+  href={serviceUrl(service)}
+  class="relative flex flex-col h-full p-6 duration-300 ease-out bg-white border border-dashed group rounded-2xl border-neutral-300 dark:bg-neutral-950 dark:border-neutral-700 hover:-translate-y-1 hover:border-solid hover:border-brand dark:hover:border-accent hover:shadow-lg"
+>
+  <span
+    class="flex items-center justify-center w-10 h-10 mb-4 rounded-xl bg-brand/5 text-brand dark:bg-accent/10 dark:text-accent"
+  >
+    <svg
+      class="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      aria-hidden="true"
+      ><path stroke-linecap="round" stroke-linejoin="round" d={service.icon}
+      ></path></svg
+    >
+  </span>
+  <span class="text-base font-bold text-neutral-900 dark:text-neutral-100">
+    {service.menuLabel}
+  </span>
+  <span class="mt-2 text-sm grow text-neutral-600 dark:text-neutral-400">
+    {service.cardText}
+  </span>
+  <span
+    class="inline-flex items-center mt-4 text-sm font-semibold text-brand dark:text-accent"
+  >
+    Découvrir
+    <span class="ml-1 duration-200 ease-out group-hover:translate-x-1">→</span>
+  </span>
+</a>

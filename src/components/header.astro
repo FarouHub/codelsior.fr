@@ -1,5 +1,7 @@
 ---
 import menus from "../collections/menu.json";
+import { families, servicesOf, serviceUrl } from "../collections/services";
+import BookingButton from "../components/landing/booking-button.astro";
 import Logo from "../components/logo.astro";
 ---
 
@@ -17,11 +19,11 @@ import Logo from "../components/logo.astro";
     >
     </div>
     <nav
-      class="relative z-30 flex flex-row-reverse justify-start w-full text-sm sm:justify-end text-neutral-500 dark:text-neutral-400 sm:flex-row"
+      class="relative z-30 flex flex-row-reverse justify-start w-full text-sm md:justify-end text-neutral-500 dark:text-neutral-400 md:flex-row"
     >
       <div
         id="openMenu"
-        class="flex flex-col items-end justify-center w-6 h-6 ml-4 cursor-pointer sm:hidden"
+        class="flex flex-col items-end justify-center w-6 h-6 ml-4 cursor-pointer md:hidden"
       >
         <svg
           class="w-8 h-8 dark:text-neutral-200"
@@ -36,7 +38,7 @@ import Logo from "../components/logo.astro";
 
       <div
         id="closeMenu"
-        class="flex flex-col items-end justify-center w-6 h-6 ml-4 -translate-x-1 cursor-pointer sm:hidden"
+        class="flex flex-col items-end justify-center w-6 h-6 ml-4 -translate-x-1 cursor-pointer md:hidden"
       >
         <svg
           class="w-6 h-6 text-neutral-600 dark:text-neutral-200"
@@ -50,10 +52,10 @@ import Logo from "../components/logo.astro";
       </div>
       <div
         id="menu"
-        class="fixed top-[75px] ease-out duration-300 sm:top-0 w-full left-0 sm:py-0 pt-7 pb-4 dm:mx-0 z-40 flex-col items-end justify-start hidden h-auto text-sm sm:text-base sm:h-auto sm:relative sm:flex-row sm:flex sm:w-auto sm:pr-0 sm:pt-0"
+        class="fixed top-[75px] ease-out duration-300 md:top-0 w-full left-0 md:py-0 pt-7 pb-4 dm:mx-0 z-40 flex-col items-end justify-start hidden h-auto text-sm md:text-base md:h-auto md:relative md:flex-row md:flex md:w-auto md:pr-0 md:pt-0"
       >
         <div
-          class="absolute inset-0 top-0 right-0 block w-full h-full px-3 sm:hidden"
+          class="absolute inset-0 top-0 right-0 block w-full h-full px-3 md:hidden"
         >
           <div
             class="relative w-full h-full bg-white border border-dashed border-neutral-300 dark:border-neutral-700 backdrop-blur-sm rounded-xl dark:bg-neutral-950"
@@ -62,17 +64,51 @@ import Logo from "../components/logo.astro";
         </div>
         {
           menus.map((menu) => {
-            return (
+            const link = (
               <a
                 href={menu.url}
-                class="relative flex items-center justify-center w-full px-3 py-2 font-medium tracking-wide text-center duration-200 ease-out sm:py-0 sm:mb-0 md:w-auto hover:text-neutral-900 dark:hover:text-white"
+                class="relative flex items-center justify-center w-full px-3 py-2 font-medium tracking-wide text-center duration-200 ease-out md:py-0 md:mb-0 md:w-auto hover:text-neutral-900 dark:hover:text-white"
               >
                 {menu.name}
               </a>
             )
+            if (menu.url !== "/services") return link
+            // Sous-menu des services : liste à plat sur mobile, panneau
+            // déroulant au survol sur desktop.
+            return (
+              <div class="relative w-full group md:w-auto">
+                {link}
+                <div class="md:absolute md:left-1/2 md:-translate-x-1/2 md:top-full md:pt-4 md:hidden md:group-hover:block md:group-focus-within:block">
+                  <div class="pb-2 md:w-80 md:p-3 md:bg-white md:border md:shadow-xl md:dark:bg-neutral-950 md:rounded-xl md:border-neutral-200 md:dark:border-neutral-800">
+                    {families.map((family) => (
+                      <div>
+                        <p class="hidden px-3 pt-2 pb-1 text-[0.65rem] font-semibold tracking-widest uppercase md:block text-accent-dark dark:text-accent">
+                          {family.name}
+                        </p>
+                        {servicesOf(family.id).map((service) => (
+                          <a
+                            href={serviceUrl(service)}
+                            class="block px-3 py-1.5 text-xs text-center md:text-sm md:text-left rounded-lg md:hover:bg-neutral-100 md:dark:hover:bg-neutral-900 hover:text-neutral-900 dark:hover:text-white"
+                          >
+                            {service.menuLabel}
+                          </a>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )
           })
         }
+        <div class="relative flex justify-center w-full pt-3 md:hidden">
+          <BookingButton text="Prendre RDV" />
+        </div>
       </div>
+      <BookingButton
+        text="Prendre RDV"
+        class="hidden! md:inline-flex! px-4! py-2! ml-4 text-xs! whitespace-nowrap"
+      />
       <div
         id="darkToggle"
         class="relative flex items-center pl-6 ml-4 font-medium tracking-wide cursor-pointer text-neutral-800 group dark:text-white"
@@ -107,7 +143,7 @@ import Logo from "../components/logo.astro";
             ></path></svg
           >
         </div>
-        <span class="hidden sm:inline-block">
+        <span class="hidden xl:inline-block">
           <span id="dayText" class="ml-2">Mode clair</span>
           <span id="nightText" class="hidden ml-2">Mode nuit</span>
         </span>

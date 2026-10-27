@@ -1,7 +1,15 @@
 import { getCollection } from "astro:content";
 import type { APIRoute } from "astro";
+import { services, serviceUrl } from "../collections/services";
 
-const staticPages = ["/", "/blog", "/projets", "/a-propos"];
+const staticPages = [
+	"/",
+	"/services",
+	...services.map(serviceUrl),
+	"/blog",
+	"/projets",
+	"/a-propos",
+];
 
 function parseDate(dateStr: string) {
 	const [month, day, year] = dateStr.split(" ");

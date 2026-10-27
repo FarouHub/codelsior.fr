@@ -1,18 +1,18 @@
 [
   {
-    "name": "Accueil",
-    "url": "/"
+    "name": "Services",
+    "url": "/services"
+  },
+  {
+    "name": "Réalisations",
+    "url": "/projets"
   },
   {
     "name": "Blog",
     "url": "/blog"
   },
   {
-    "name": "Projets",
-    "url": "/projets"
-  },
-  {
-    "name": "A propos",
+    "name": "À propos",
     "url": "/a-propos"
   }
 ]

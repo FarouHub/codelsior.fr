@@ -1,6 +1,6 @@
 ---
 import menus from "../collections/menu.json";
-import { families, servicesOf, serviceUrl } from "../collections/services";
+import { services, serviceUrl } from "../collections/services";
 import BookingButton from "../components/landing/booking-button.astro";
 import Logo from "../components/logo.astro";
 ---
@@ -80,20 +80,13 @@ import Logo from "../components/logo.astro";
                 {link}
                 <div class="md:absolute md:left-1/2 md:-translate-x-1/2 md:top-full md:pt-4 md:hidden md:group-hover:block md:group-focus-within:block">
                   <div class="pb-2 md:w-80 md:p-3 md:bg-white md:border md:shadow-xl md:dark:bg-neutral-950 md:rounded-xl md:border-neutral-200 md:dark:border-neutral-800">
-                    {families.map((family) => (
-                      <div>
-                        <p class="hidden px-3 pt-2 pb-1 text-[0.65rem] font-semibold tracking-widest uppercase md:block text-accent-dark dark:text-accent">
-                          {family.name}
-                        </p>
-                        {servicesOf(family.id).map((service) => (
-                          <a
-                            href={serviceUrl(service)}
-                            class="block px-3 py-1.5 text-xs text-center md:text-sm md:text-left rounded-lg md:hover:bg-neutral-100 md:dark:hover:bg-neutral-900 hover:text-neutral-900 dark:hover:text-white"
-                          >
-                            {service.menuLabel}
-                          </a>
-                        ))}
-                      </div>
+                    {services.map((service) => (
+                      <a
+                        href={serviceUrl(service)}
+                        class="block px-3 py-1.5 text-xs text-center md:text-sm md:text-left rounded-lg md:hover:bg-neutral-100 md:dark:hover:bg-neutral-900 hover:text-neutral-900 dark:hover:text-white"
+                      >
+                        {service.menuLabel}
+                      </a>
                     ))}
                   </div>
                 </div>

@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import projects from "../../collections/projects.json";
 import {
-	families,
+	matchesService,
 	type Service,
 	services,
 	serviceUrl,
@@ -33,16 +33,15 @@ interface Props {
 }
 
 const { service } = Astro.props;
-const family = families.find((f) => f.id === service.family);
 const relatedProjects = projects
-	.filter((project) => project.services.includes(service.slug))
+	.filter((project) => matchesService(service, project.services))
 	.slice(0, 3);
 const relatedPosts = (
 	await getCollection(
 		"post",
 		({ data }) =>
 			(import.meta.env.DEV || !data.draft) &&
-			data.services.includes(service.slug),
+			matchesService(service, data.services),
 	)
 ).slice(0, 3);
 const otherServices = services.filter((s) => s.slug !== service.slug);
@@ -108,7 +107,7 @@ const jsonLd = [
         >
         <span class="mx-1">/</span>
         <span class="font-semibold text-accent-dark dark:text-accent"
-          >{family?.name}</span
+          >{service.menuLabel}</span
         >
       </nav>
       <h1

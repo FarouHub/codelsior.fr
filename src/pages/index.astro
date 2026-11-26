@@ -6,7 +6,7 @@ import Separator from "../components/home/separator.astro";
 import Writings from "../components/home/writings.astro";
 import BookingButton from "../components/landing/booking-button.astro";
 import CtaBanner from "../components/landing/cta-banner.astro";
-import Families from "../components/landing/families.astro";
+import ServicesGrid from "../components/landing/services-grid.astro";
 import ItemGrid from "../components/landing/item-grid.astro";
 import SectionTitle from "../components/landing/section-title.astro";
 import Testimonials from "../components/landing/testimonials.astro";
@@ -90,7 +90,7 @@ const jsonLd = [
 
 <Layout
   title="Codelsior · Développeur freelance senior augmenté par l'IA"
-  description={`Logiciel sur mesure, automatisation IA, souveraineté numérique, renfort d'équipe et DevOps : le projet que vous repoussez devient réalisable, ${site.savingsClaim}. Freelance en Alsace, partout en France.`}
+  description={`Logiciel sur mesure, automatisation IA, souveraineté numérique, renfort d'équipe et infrastructure : le projet que vous repoussez devient réalisable, ${site.savingsClaim}. Freelance en Alsace, partout en France.`}
   jsonLd={jsonLd}
 >
   <div
@@ -209,9 +209,9 @@ const jsonLd = [
   <section id="services" class="relative z-20 max-w-4xl mx-auto scroll-mt-24 px-7 lg:px-0">
     <SectionTitle
       title="Comment je peux vous aider"
-      description="Cinq services, trois familles. Chacun commence par un appel gratuit et une offre de démarrage à prix fixe."
+      description="Trois façons de travailler ensemble. Chacune commence par un appel gratuit et une offre de démarrage à prix fixe."
     />
-    <Families />
+    <ServicesGrid />
   </section>
 
   <Separator text="Pourquoi l'IA change tout" />
@@ -222,7 +222,7 @@ const jsonLd = [
     />
     <ItemGrid items={aiPillars} />
     <a
-      href="/services/projet-sur-mesure-ia"
+      href="/services/logiciel-sur-mesure-automatisation-ia"
       class="inline-block mt-6 text-sm font-semibold text-brand dark:text-accent hover:underline"
     >
       Voir la comparaison avec une agence →

@@ -1,14 +1,9 @@
-// Les 5 services (pivots) du site, regroupés en 3 familles. Chaque service
-// génère sa landing page /services/<slug> et alimente la home, le menu, le
-// footer et le sitemap.
-
-export type FamilyId = "construire" | "liberer" | "renforcer";
-
-export interface Family {
-	id: FamilyId;
-	name: string;
-	tagline: string;
-}
+// Les services du site. Chaque service génère sa landing page
+// /services/<slug> et alimente la home, le menu, le footer et le sitemap.
+//
+// `aliases` liste les anciens slugs d'un service (fusions successives) :
+// ils servent à la fois aux redirections (astro.config.mjs et nginx) et au
+// rattachement des projets et des articles déjà taggés avec l'ancien slug.
 
 export interface Item {
 	title: string;
@@ -33,7 +28,10 @@ export interface ComparisonRow {
 
 export interface Service {
 	slug: string;
-	family: FamilyId;
+	aliases?: string[];
+	// Service de second plan : présenté en carte compacte sous la grille
+	// principale, et en fin de liste dans le menu et le footer.
+	secondary?: boolean;
 	menuLabel: string;
 	cardText: string;
 	icon: string;
@@ -55,24 +53,6 @@ export interface Service {
 	ctaTitle: string;
 }
 
-export const families: Family[] = [
-	{
-		id: "construire",
-		name: "Construire",
-		tagline: "Donnez vie aux outils qui vous manquent.",
-	},
-	{
-		id: "liberer",
-		name: "Libérer",
-		tagline: "Reprenez le contrôle de vos données et de vos licences.",
-	},
-	{
-		id: "renforcer",
-		name: "Renforcer",
-		tagline: "Un senior de plus dans votre équipe ou sur votre infra.",
-	},
-];
-
 // Chemins d'icônes Heroicons (outline, 24px).
 const icons = {
 	sparkles:
@@ -93,19 +73,21 @@ const discoveryCall: Item = {
 
 export const services: Service[] = [
 	{
-		slug: "projet-sur-mesure-ia",
-		family: "construire",
-		menuLabel: "Projet sur mesure avec l'IA",
+		slug: "logiciel-sur-mesure-automatisation-ia",
+		aliases: ["projet-sur-mesure-ia", "automatisation-ia"],
+		menuLabel: "Logiciel sur mesure et automatisation IA",
 		cardText:
-			"Back-office, portail client, outil métier : le projet que vous repoussez depuis des années, enfin à votre portée.",
+			"Back-office, portail client, outil métier, ou les saisies répétitives de vos équipes : je construis ce qui vous manque et j'automatise le reste.",
 		icon: icons.sparkles,
-		seoTitle: "Logiciel sur mesure développé avec l'IA pour PME | Codelsior",
+		seoTitle: "Logiciel sur mesure et automatisation IA pour PME | Codelsior",
 		metaDescription:
-			"Back-office, portail client, outil métier : faites développer le projet que vous repoussez depuis des années, jusqu'à 10× moins cher qu'une agence grâce à l'IA. Freelance en Alsace, partout en France.",
-		headline: "Le projet que vous n'avez jamais osé lancer.",
+			"Back-office, portail client, outil métier, automatisation des tâches répétitives : je développe avec l'IA les outils qui vous manquent, jusqu'à 10× moins cher qu'une agence. Freelance en Alsace, partout en France.",
+		headline:
+			"Le projet que vous repoussez, les tâches que vous ne ferez plus.",
 		subheadline:
-			"Back-office, portail client, outil de devis, application métier… Grâce au développement assisté par l'IA, je livre des outils sur mesure en quelques semaines, jusqu'à 10× moins cher qu'une agence.",
-		audience: "Dirigeants de PME, responsables métier, porteurs de projet",
+			"Back-office, portail client, outil de devis, saisie de factures, relances, ressaisies entre logiciels… Grâce au développement assisté par l'IA, je livre des outils sur mesure et des automatisations en quelques semaines, jusqu'à 10× moins cher qu'une agence.",
+		audience:
+			"Dirigeants de PME, responsables métier, DAF et responsables des opérations",
 		pains: [
 			{
 				title: "Un devis d'agence à 50 000 €",
@@ -116,41 +98,53 @@ export const services: Service[] = [
 				text: "Une seule personne le comprend, tout le monde le redoute, et il casse toujours au pire moment.",
 			},
 			{
-				title: "Un SaaS cher qui ne colle pas",
-				text: "Vous payez des licences chaque mois pour un outil que vos équipes contournent au quotidien.",
+				title: "Des heures perdues en saisie",
+				text: "Vos équipes recopient des factures, des bons de commande et des emails au lieu de faire leur vrai métier.",
+			},
+			{
+				title: "Des outils qui ne se parlent pas",
+				text: "Exports, ressaisies, erreurs de copier-coller : chaque logiciel est une île.",
 			},
 		],
 		deliverables: [
 			{
 				title: "Outils métier et back-offices",
-				text: "Stocks, planning, suivi de production, CRM maison : un outil taillé pour vos process, pas l'inverse.",
+				text: "Stocks, planning, suivi de production, CRM maison, MVP de SaaS : un outil taillé pour vos process, pas l'inverse.",
 			},
 			{
 				title: "Portails clients et extranets",
 				text: "Commandes, documents, suivi de dossier : vos clients se servent seuls, 24 h/24.",
 			},
 			{
-				title: "MVP de SaaS",
-				text: "Une idée de produit ? Je construis une première version solide, prête pour vos premiers utilisateurs.",
+				title: "Remplacement d'Excel, d'Access ou d'un vieux logiciel",
+				text: "Je reprends l'existant, migre les données et livre un outil web moderne et maintenable.",
 			},
 			{
-				title: "Remplacement d'Excel, Access ou d'un vieux logiciel",
-				text: "Je reprends l'existant, migre les données et livre un outil web moderne et maintenable.",
+				title: "Traitement automatique des documents",
+				text: "Factures, bons de commande, contrats : extraction automatique et intégration dans vos outils.",
+			},
+			{
+				title: "Synchronisation entre vos outils",
+				text: "CRM, ERP, e-commerce, comptabilité, messagerie : les données circulent seules, sans ressaisie.",
+			},
+			{
+				title: "Assistants internes et IA souveraine",
+				text: "Un assistant qui répond à partir de vos procédures et de vos données, avec des modèles européens ou open source si elles sont sensibles.",
 			},
 		],
 		process: [
 			discoveryCall,
 			{
 				title: "Cadrage + prototype en 5 jours",
-				text: "Vous voyez et cliquez sur votre futur outil avant d'engager le budget de développement.",
+				text: "Vous voyez et cliquez sur votre futur outil avant d'engager le budget de développement. Pour une TPE ou une PME, l'entrée peut aussi être un diagnostic d'une demi-journée sur site.",
 			},
 			{
-				title: "Développement par itérations",
-				text: "Une livraison chaque semaine, testée par vous. L'IA accélère, je garde la main sur l'architecture et la qualité.",
+				title: "Développement et automatisations par itérations",
+				text: "Une livraison chaque semaine, testée par vous, en commençant par ce qui rapporte le plus. L'IA accélère, je garde la main sur l'architecture et la qualité.",
 			},
 			{
 				title: "Mise en production et suivi",
-				text: "Hébergement en France ou en Europe, puis maintenance et évolutions si vous le souhaitez.",
+				text: "Hébergement en France ou en Europe, mesure des heures gagnées, puis maintenance et évolutions si vous le souhaitez.",
 			},
 		],
 		offer: {
@@ -162,6 +156,7 @@ export const services: Service[] = [
 				"Atelier de cadrage (½ journée) avec vos équipes",
 				"Maquette cliquable des écrans clés",
 				"Backlog priorisé et chiffrage du MVP",
+				"Automatisations identifiées et chiffrées en heures gagnées",
 				"Recommandations d'architecture et d'hébergement",
 			],
 			note: "Montant intégralement déduit si vous lancez le développement avec moi.",
@@ -191,6 +186,7 @@ export const services: Service[] = [
 		why: [
 			"Je développe aujourd'hui Bonjour Fun avec l'IA : une plateforme SaaS qui fait tourner 10 marketplaces en production.",
 			"15 ans d'expérience, dont un ERP logistique chez PSA : je sais ce qu'est un logiciel métier qui doit tenir dans la durée.",
+			"Ancien pilote d'application chez PSA : je parle processus et métier, pas seulement technique.",
 			"Vous êtes propriétaire du code, hébergé où vous voulez. Aucun verrouillage.",
 		],
 		faq: [
@@ -201,6 +197,18 @@ export const services: Service[] = [
 			{
 				q: "Comment pouvez-vous être autant moins cher qu'une agence ?",
 				a: "Pas de structure à financer (commercial, chef de projet, locaux), et l'IA qui prend en charge les parties répétitives du développement. Vous payez l'expertise, pas les heures de saisie.",
+			},
+			{
+				q: "Faut-il changer nos logiciels pour automatiser ?",
+				a: "Non. Les automatisations se branchent sur vos outils existants (messagerie, ERP, CRM, e-commerce, tableurs) dès qu'ils le permettent. Je ne remplace un logiciel que si c'est lui le problème.",
+			},
+			{
+				q: "Nos données vont-elles partir chez OpenAI ?",
+				a: "Seulement si vous le choisissez. Pour les données sensibles, je propose des modèles européens ou open source hébergés en Europe.",
+			},
+			{
+				q: "Et si l'IA se trompe ?",
+				a: "Je prévois une validation humaine là où une erreur coûte cher. L'IA prépare, votre équipe valide.",
 			},
 			{
 				q: "À qui appartient le code ?",
@@ -215,117 +223,7 @@ export const services: Service[] = [
 		ctaTitle: "Parlons du projet que vous repoussez.",
 	},
 	{
-		slug: "automatisation-ia",
-		family: "construire",
-		menuLabel: "Automatisation de processus par l'IA",
-		cardText:
-			"Saisie, tri, relances, ressaisies entre logiciels : je repère les tâches répétitives et je les automatise.",
-		icon: icons.bolt,
-		seoTitle: "Automatisation des processus par l'IA pour PME | Codelsior",
-		metaDescription:
-			"Factures, emails, synchronisation entre logiciels, assistants internes : j'automatise les tâches répétitives de vos équipes avec l'IA, en gardant vos données en Europe. Audit d'une demi-journée pour démarrer.",
-		headline: "Arrêtez de faire à la main ce qu'une machine fait mieux.",
-		subheadline:
-			"Saisie de factures, tri des emails, relances, copier-coller entre logiciels… J'identifie les tâches répétitives de vos équipes et je les automatise avec l'IA, sans faire sortir vos données d'Europe.",
-		audience: "Dirigeants, DAF, responsables des opérations",
-		pains: [
-			{
-				title: "Des heures perdues en saisie",
-				text: "Vos équipes recopient des factures, des bons de commande et des emails au lieu de faire leur vrai métier.",
-			},
-			{
-				title: "Des outils qui ne se parlent pas",
-				text: "Exports, ressaisies, erreurs de copier-coller : chaque logiciel est une île.",
-			},
-			{
-				title: "L'IA, mais par où commencer ?",
-				text: "ChatGPT utilisé en vrac, des données qui partent on ne sait où, et aucun gain mesurable.",
-			},
-		],
-		deliverables: [
-			{
-				title: "Traitement des documents",
-				text: "Factures, bons de commande, contrats : extraction automatique et intégration dans vos outils.",
-			},
-			{
-				title: "Emails et demandes clients",
-				text: "Tri, routage et réponses préparées : votre équipe valide au lieu de rédiger.",
-			},
-			{
-				title: "Synchronisation entre outils",
-				text: "CRM, ERP, e-commerce, comptabilité : les données circulent seules, sans ressaisie.",
-			},
-			{
-				title: "Assistants internes",
-				text: "Un assistant qui répond à partir de vos procédures, de vos documents et de vos données.",
-			},
-			{
-				title: "IA souveraine",
-				text: "Modèles européens ou open source hébergés en Europe pour vos données sensibles.",
-			},
-			{
-				title: "Formation de vos équipes",
-				text: "Les bons usages de l'IA au quotidien, adaptés à vos métiers et à vos règles de confidentialité.",
-			},
-		],
-		process: [
-			discoveryCall,
-			{
-				title: "Audit automatisation (½ journée)",
-				text: "On passe en revue vos processus, je repère les gains rapides et je chiffre le temps économisé.",
-			},
-			{
-				title: "Mise en place",
-				text: "Je construis les automatisations prioritaires, en commençant par celle qui rapporte le plus.",
-			},
-			{
-				title: "Mesure et extension",
-				text: "On mesure les heures gagnées, puis on étend aux processus suivants.",
-			},
-		],
-		offer: {
-			name: "Audit automatisation IA",
-			duration: "½ journée",
-			price: "590 €",
-			launchPrice: "450 €",
-			includes: [
-				"Revue de vos processus avec vos équipes, sur site ou en visio",
-				"3 à 5 automatisations identifiées et classées par impact",
-				"1 à 2 gains rapides chiffrés en heures économisées",
-				"Recommandations d'outils, options souveraines incluses",
-			],
-			note: "Montant déduit de la mise en place si vous me confiez le projet.",
-		},
-		showMaintenance: true,
-		why: [
-			"J'utilise l'IA tous les jours pour développer et opérer Bonjour Fun : je sais ce qui marche vraiment, et ce qui relève du gadget.",
-			"Ancien pilote d'application chez PSA : je parle processus et métier, pas seulement technique.",
-			"Vos données restent sous contrôle : hébergement en France ou en Europe, modèles souverains possibles.",
-		],
-		faq: [
-			{
-				q: "Faut-il changer nos logiciels ?",
-				a: "Non. Les automatisations se branchent sur vos outils existants (messagerie, ERP, CRM, e-commerce, tableurs) dès qu'ils le permettent.",
-			},
-			{
-				q: "Nos données vont-elles partir chez OpenAI ?",
-				a: "Seulement si vous le choisissez. Pour les données sensibles, je propose des modèles européens ou open source hébergés en Europe.",
-			},
-			{
-				q: "Combien de temps pour voir un résultat ?",
-				a: "Les gains rapides identifiés pendant l'audit se mettent généralement en place en quelques jours.",
-			},
-			{
-				q: "Et si l'IA se trompe ?",
-				a: "Je prévois une validation humaine là où une erreur coûte cher. L'IA prépare, votre équipe valide.",
-			},
-		],
-		calEvent: "automatisation-ia",
-		ctaTitle: "Quelles tâches pourriez-vous ne plus jamais faire ?",
-	},
-	{
 		slug: "souverainete-open-source",
-		family: "liberer",
 		menuLabel: "Souveraineté et open source",
 		cardText:
 			"Hébergement en France ou en Europe, sortie des licences propriétaires, à commencer par votre e-commerce et votre ERP.",
@@ -435,20 +333,21 @@ export const services: Service[] = [
 		ctaTitle: "Combien vous coûte votre dépendance ?",
 	},
 	{
-		slug: "renfort-developpeur",
-		family: "renforcer",
-		menuLabel: "Renfort développeur senior",
+		slug: "renfort-et-infrastructure",
+		aliases: ["renfort-developpeur", "hebergement-devops"],
+		secondary: true,
+		menuLabel: "Renfort et infrastructure",
 		cardText:
-			"PHP/Symfony, e-commerce, ERP : un senior qui rejoint votre équipe 2 à 3 jours par semaine, dès maintenant.",
+			"Pour les équipes tech : un développeur senior en renfort 2 à 3 jours par semaine, et une infra sécurisée, automatisée, documentée.",
 		icon: icons.users,
 		seoTitle:
-			"Développeur freelance senior PHP/Symfony et e-commerce en renfort | Codelsior",
+			"Renfort développeur senior et infrastructure (DevOps, hébergement) | Codelsior",
 		metaDescription:
-			"Développeur freelance senior (15 ans) en renfort de votre équipe : PHP/Symfony, Sylius, Magento, Java, ERP. 2 à 3 jours par semaine, remote ou sur site en Alsace. Disponible immédiatement.",
-		headline: "Un développeur senior dans votre équipe, dès cette semaine.",
+			"Développeur freelance senior (15 ans) en renfort de votre équipe — PHP/Symfony, Sylius, Magento, ERP — et mise en sécurité de votre hébergement : Docker, Traefik, CI/CD, sauvegardes, serveurs en France ou en Europe.",
+		headline: "Un senior de plus dans votre équipe, ou sur votre infra.",
 		subheadline:
-			"Roadmap qui glisse, migration à mener, départ à compenser ? Je rejoins votre équipe en régie, 2 à 3 jours par semaine, avec 15 ans d'expérience en PHP/Symfony, e-commerce et ERP, et l'IA comme accélérateur.",
-		audience: "CTO, lead devs, DSI de PME et de scale-ups",
+			"Roadmap qui glisse, migration à mener, déploiements à la main, sauvegardes jamais testées ? Je rejoins votre équipe en régie 2 à 3 jours par semaine, et je sécurise, automatise et documente votre hébergement, en France ou en Europe.",
+		audience: "CTO, lead devs, DSI de PME et de scale-ups, éditeurs SaaS",
 		pains: [
 			{
 				title: "Une roadmap qui glisse",
@@ -459,106 +358,8 @@ export const services: Service[] = [
 				text: "Et pendant ce temps, le projet n'avance pas.",
 			},
 			{
-				title: "Une migration que personne n'ose toucher",
-				text: "Montée de version Symfony ou Magento, changement de plateforme e-commerce : le sujet est repoussé depuis trop longtemps.",
-			},
-		],
-		deliverables: [
-			{
-				title: "PHP et Symfony",
-				text: "API, back-offices, refontes et montées de version, avec des tests.",
-			},
-			{
-				title: "E-commerce",
-				text: "Sylius, Magento, migrations de plateforme, connecteurs ERP et paiement.",
-			},
-			{
-				title: "ERP et logiciels métier",
-				text: "Java, intégrations entre systèmes, migrations de données.",
-			},
-			{
-				title: "Développement accéléré par l'IA",
-				text: "Je partage avec votre équipe les pratiques que j'utilise au quotidien pour livrer plus vite.",
-			},
-			{
-				title: "Architecture et revue de code",
-				text: "Un regard senior sur vos choix techniques et votre dette.",
-			},
-			{
-				title: "Infra si besoin",
-				text: "Docker, CI/CD et déploiement : je ne m'arrête pas au merge.",
-			},
-		],
-		process: [
-			discoveryCall,
-			{
-				title: "Onboarding",
-				text: "Accès, lecture du code, premier ticket livré dès la première semaine.",
-			},
-			{
-				title: "Intégration à vos rituels",
-				text: "Sprints, revues, points d'équipe : en remote ou sur site en Alsace.",
-			},
-			{
-				title: "Passation",
-				text: "Documentation et transmission : rien ne repart avec moi.",
-			},
-		],
-		availability: [
-			"2 à 3 jours par semaine",
-			"Remote, ou sur site en Alsace, à Bâle et à Fribourg-en-Brisgau",
-			"Régie au TJM, communiqué lors de l'appel découverte",
-		],
-		why: [
-			"Senior PHP/Symfony, Java et e-commerce : 15 ans de projets en production.",
-			"Migrations réalisées : Shopware vers Sylius (Tune), montée de version Magento (Lightweight).",
-			"CTO de Bonjour Fun : je comprends les contraintes produit, pas seulement les tickets.",
-		],
-		faq: [
-			{
-				q: "Pourquoi 2 à 3 jours par semaine ?",
-				a: "Je reste CTO de Bonjour Fun, ce qui me garde au contact de la production au quotidien. Ce rythme convient à un renfort durable comme à une migration ciblée.",
-			},
-			{
-				q: "Remote ou sur site ?",
-				a: "Principalement en remote, avec des déplacements possibles en Alsace, à Bâle ou à Fribourg-en-Brisgau.",
-			},
-			{
-				q: "Quel est votre TJM ?",
-				a: "Il dépend de la durée et du périmètre de la mission. Je vous le communique dès l'appel découverte, sans détour.",
-			},
-			{
-				q: "Et si notre stack est différente ?",
-				a: "Mon cœur de métier est PHP/Symfony, l'e-commerce et l'ERP, et je m'adapte vite aux stacks voisines. Si ce n'est pas le bon fit, je vous le dirai dès l'appel.",
-			},
-		],
-		calEvent: "renfort",
-		ctaTitle: "Besoin d'un senior dès la semaine prochaine ?",
-	},
-	{
-		slug: "hebergement-devops",
-		family: "renforcer",
-		menuLabel: "Hébergement et DevOps",
-		cardText:
-			"Serveurs sécurisés, déploiements automatisés, sauvegardes testées, en France ou en Europe.",
-		icon: icons.server,
-		seoTitle:
-			"Hébergement, DevOps et sécurité serveur en France et en Europe | Codelsior",
-		metaDescription:
-			"Durcissement de serveurs, Docker, Traefik, CI/CD, sauvegardes et migration d'hébergement vers la France ou l'Europe. Audit infra et sécurité d'une journée pour démarrer.",
-		headline: "Une infra solide, sécurisée, et que vous comprenez.",
-		subheadline:
-			"Serveurs jamais mis à jour, déploiements à la main, sauvegardes jamais testées ? Je sécurise, automatise et documente votre hébergement, en France ou en Europe.",
-		audience:
-			"Équipes tech, éditeurs SaaS, PME qui hébergent leurs applications",
-		pains: [
-			{
 				title: "Des déploiements qui font peur",
 				text: "À la main, le vendredi soir, en croisant les doigts.",
-			},
-			{
-				title: "Une sécurité au petit bonheur",
-				text: "Ports ouverts, base de données exposée sur internet, mises à jour en retard.",
 			},
 			{
 				title: "Des sauvegardes jamais testées",
@@ -567,43 +368,43 @@ export const services: Service[] = [
 		],
 		deliverables: [
 			{
+				title: "PHP et Symfony",
+				text: "API, back-offices, refontes et montées de version, avec des tests.",
+			},
+			{
+				title: "E-commerce et ERP",
+				text: "Sylius, Magento, migrations de plateforme, Java, connecteurs ERP et paiement, migrations de données.",
+			},
+			{
+				title: "Architecture, revue de code et IA",
+				text: "Un regard senior sur vos choix techniques et votre dette, et les pratiques de développement assisté par l'IA partagées avec votre équipe.",
+			},
+			{
 				title: "Audit et durcissement",
 				text: "SSH, pare-feu, mises à jour, exposition des services : les failles fermées une par une.",
 			},
 			{
-				title: "Conteneurisation",
-				text: "Docker et Traefik, des environnements reproductibles du poste de dev à la production.",
+				title: "Docker, Traefik et CI/CD",
+				text: "Des environnements reproductibles et des déploiements automatisés, avec retour arrière sans stress.",
 			},
 			{
-				title: "CI/CD",
-				text: "Déploiements automatisés, tests et retour arrière sans stress.",
-			},
-			{
-				title: "Sauvegardes et reprise",
-				text: "Sauvegardes externalisées et restaurations réellement testées.",
-			},
-			{
-				title: "Supervision",
-				text: "Monitoring et alertes : vous êtes prévenu avant vos clients.",
-			},
-			{
-				title: "Migration d'hébergement",
-				text: "Vers un VPS ou un cloud européen, sans coupure de service.",
+				title: "Sauvegardes, supervision et migration",
+				text: "Sauvegardes réellement testées, alertes avant vos clients, et migration vers un cloud européen sans coupure.",
 			},
 		],
 		process: [
 			discoveryCall,
 			{
-				title: "Audit infra et sécurité (1 jour)",
-				text: "Revue complète de votre hébergement, rapport priorisé et restitution.",
+				title: "Onboarding, ou audit infra (1 jour)",
+				text: "Pour un renfort : accès, lecture du code, premier ticket livré dès la première semaine. Pour une infra : revue complète, rapport priorisé et restitution.",
 			},
 			{
-				title: "Plan d'action",
-				text: "Les risques critiques d'abord, puis l'automatisation et la supervision.",
+				title: "Intégration à vos rituels",
+				text: "Sprints, revues, points d'équipe : en remote ou sur site en Alsace. Côté infra, les risques critiques d'abord, puis l'automatisation et la supervision.",
 			},
 			{
-				title: "Mise en œuvre et documentation",
-				text: "Vous devenez autonomes, et je reste joignable en cas de besoin.",
+				title: "Passation et documentation",
+				text: "Vous devenez autonomes, rien ne repart avec moi, et je reste joignable en cas de besoin.",
 			},
 		],
 		offer: {
@@ -620,31 +421,45 @@ export const services: Service[] = [
 				"Rapport priorisé et restitution d'une heure",
 			],
 		},
+		availability: [
+			"2 à 3 jours par semaine",
+			"Remote, ou sur site en Alsace, à Bâle et à Fribourg-en-Brisgau",
+			"Régie au TJM, communiqué lors de l'appel découverte",
+		],
 		why: [
+			"Senior PHP/Symfony, Java et e-commerce : 15 ans de projets en production.",
+			"Migrations réalisées : Shopware vers Sylius (Tune), montée de version Magento (Lightweight).",
 			"J'opère au quotidien l'infrastructure multi-tenant de Bonjour Fun : 10 marketplaces, domaines personnalisés et SSL automatisé.",
 			"Ancien responsable de l'infrastructure informatique de Tune (Allemagne).",
-			"J'écris sur le sujet : durcissement Debian, Traefik, multi-tenant. Les articles sont plus bas.",
 		],
 		faq: [
 			{
-				q: "Faites-vous de l'infogérance ?",
-				a: "Pour les applications que je développe, oui, via un forfait mensuel. Pour le reste de votre parc, cela dépend du périmètre : parlons-en.",
+				q: "Pourquoi 2 à 3 jours par semaine ?",
+				a: "Je reste CTO de Bonjour Fun, ce qui me garde au contact de la production au quotidien. Ce rythme convient à un renfort durable comme à une migration ciblée.",
 			},
 			{
-				q: "Sur quels hébergeurs ?",
-				a: "OVHcloud, Scaleway, Hetzner, Infomaniak ou votre cloud actuel. Je privilégie les hébergeurs européens.",
+				q: "Quel est votre TJM ?",
+				a: "Il dépend de la durée et du périmètre de la mission. Je vous le communique dès l'appel découverte, sans détour.",
+			},
+			{
+				q: "Et si notre stack est différente ?",
+				a: "Mon cœur de métier est PHP/Symfony, l'e-commerce et l'ERP, et je m'adapte vite aux stacks voisines. Si ce n'est pas le bon fit, je vous le dirai dès l'appel.",
+			},
+			{
+				q: "Faites-vous de l'infogérance ?",
+				a: "Pour les applications que je développe, oui, via un forfait mensuel. Pour le reste de votre parc, cela dépend du périmètre : parlons-en.",
 			},
 			{
 				q: "Faut-il tout passer sous Docker ?",
 				a: "Non. Je pars de votre existant et je ne conteneurise que ce qui apporte un vrai gain.",
 			},
 		],
-		calEvent: "devops",
-		ctaTitle: "Votre infra passerait-elle un audit demain ?",
+		calEvent: "renfort",
+		ctaTitle: "Besoin d'un senior dès la semaine prochaine ?",
 	},
 ];
 
-// Hébergement et maintenance des applications livrées (pages « Construire »).
+// Hébergement et maintenance des applications livrées.
 export const maintenancePlans = [
 	{
 		name: "Essentiel",
@@ -677,10 +492,34 @@ export const maintenancePlans = [
 	},
 ];
 
-export function servicesOf(family: FamilyId) {
-	return services.filter((service) => service.family === family);
-}
-
 export function serviceUrl(service: Service) {
 	return `/services/${service.slug}`;
 }
+
+export const primaryServices = services.filter((service) => !service.secondary);
+
+export const secondaryServices = services.filter(
+	(service) => service.secondary,
+);
+
+// Tags (projets, articles, témoignages) rattachés à un service : son slug
+// actuel et tous ses anciens slugs.
+export function serviceTags(service: Service) {
+	return [service.slug, ...(service.aliases ?? [])];
+}
+
+export function matchesService(service: Service, tags: string[] = []) {
+	const slugs = serviceTags(service);
+	return tags.some((tag) => slugs.includes(tag));
+}
+
+// Redirections des anciennes URLs de services, consommées par
+// astro.config.mjs. Les mêmes règles sont servies en 301 par nginx en prod.
+export const serviceRedirects: Record<string, string> = Object.fromEntries(
+	services.flatMap((service) =>
+		(service.aliases ?? []).map((alias) => [
+			`/services/${alias}`,
+			serviceUrl(service),
+		]),
+	),
+);

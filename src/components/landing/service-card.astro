@@ -3,39 +3,78 @@ import { type Service, serviceUrl } from "../../collections/services";
 
 interface Props {
 	service: Service;
+	// Carte compacte, sur une ligne : utilisée pour les services de second
+	// plan (`secondary`) sous la grille principale.
+	compact?: boolean;
+	// Carte pleine largeur et bordure pleine : service mis en avant.
+	featured?: boolean;
 }
 
-const { service } = Astro.props;
+const { service, compact = false, featured = false } = Astro.props;
 ---
 
-<a
-  href={serviceUrl(service)}
-  class="relative flex flex-col h-full p-6 duration-300 ease-out bg-white border border-dashed group rounded-2xl border-neutral-300 dark:bg-neutral-950 dark:border-neutral-700 hover:-translate-y-1 hover:border-solid hover:border-brand dark:hover:border-accent hover:shadow-lg"
->
-  <span
-    class="flex items-center justify-center w-10 h-10 mb-4 rounded-xl bg-brand/5 text-brand dark:bg-accent/10 dark:text-accent"
-  >
-    <svg
-      class="w-6 h-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      aria-hidden="true"
-      ><path stroke-linecap="round" stroke-linejoin="round" d={service.icon}
-      ></path></svg
+{
+  compact ? (
+    <a
+      href={serviceUrl(service)}
+      class="flex items-start gap-4 p-5 duration-300 ease-out bg-white border group rounded-2xl border-neutral-200 dark:bg-neutral-950 dark:border-neutral-800 hover:border-brand dark:hover:border-accent"
     >
-  </span>
-  <span class="text-base font-bold text-neutral-900 dark:text-neutral-100">
-    {service.menuLabel}
-  </span>
-  <span class="mt-2 text-sm grow text-neutral-600 dark:text-neutral-400">
-    {service.cardText}
-  </span>
-  <span
-    class="inline-flex items-center mt-4 text-sm font-semibold text-brand dark:text-accent"
-  >
-    Découvrir
-    <span class="ml-1 duration-200 ease-out group-hover:translate-x-1">→</span>
-  </span>
-</a>
+      <span class="flex items-center justify-center flex-none w-8 h-8 rounded-lg bg-neutral-100 text-neutral-500 dark:bg-neutral-900 dark:text-neutral-400">
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d={service.icon} />
+        </svg>
+      </span>
+      <span class="grow">
+        <span class="block text-sm font-bold text-neutral-900 dark:text-neutral-100">
+          {service.menuLabel}
+        </span>
+        <span class="block mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+          {service.cardText}
+        </span>
+      </span>
+      <span class="flex-none mt-1 text-sm font-semibold duration-200 ease-out text-brand dark:text-accent group-hover:translate-x-1">
+        →
+      </span>
+    </a>
+  ) : (
+    <a
+      href={serviceUrl(service)}
+      class:list={[
+        "relative flex flex-col h-full p-6 duration-300 ease-out bg-white border group rounded-2xl dark:bg-neutral-950 hover:-translate-y-1 hover:border-solid hover:border-brand dark:hover:border-accent hover:shadow-lg",
+        featured
+          ? "border-2 border-brand dark:border-accent"
+          : "border-dashed border-neutral-300 dark:border-neutral-700",
+      ]}
+    >
+      <span class="flex items-center justify-center w-10 h-10 mb-4 rounded-xl bg-brand/5 text-brand dark:bg-accent/10 dark:text-accent">
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d={service.icon} />
+        </svg>
+      </span>
+      <span class="text-base font-bold text-neutral-900 dark:text-neutral-100">
+        {service.menuLabel}
+      </span>
+      <span class="mt-2 text-sm grow text-neutral-600 dark:text-neutral-400">
+        {service.cardText}
+      </span>
+      <span class="inline-flex items-center mt-4 text-sm font-semibold text-brand dark:text-accent">
+        Découvrir
+        <span class="ml-1 duration-200 ease-out group-hover:translate-x-1">→</span>
+      </span>
+    </a>
+  )
+}

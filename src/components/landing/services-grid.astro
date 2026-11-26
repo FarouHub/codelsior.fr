@@ -1,0 +1,36 @@
+---
+import {
+	featuredService,
+	primaryServices,
+	secondaryServices,
+} from "../../collections/services";
+import ServiceCard from "./service-card.astro";
+
+interface Props {
+	// La home présente le service mis en avant dans son propre bloc
+	// (`pme-highlight.astro`) : la grille ne le répète donc pas.
+	includeFeatured?: boolean;
+}
+
+const { includeFeatured = false } = Astro.props;
+---
+
+<div class="space-y-5">
+  {
+    includeFeatured && featuredService && (
+      <ServiceCard service={featuredService} featured />
+    )
+  }
+  <div class="grid items-stretch grid-cols-1 gap-5 sm:grid-cols-2">
+    {primaryServices.map((service) => <ServiceCard service={service} />)}
+  </div>
+  {
+    secondaryServices.length > 0 && (
+      <div class="space-y-3">
+        {secondaryServices.map((service) => (
+          <ServiceCard service={service} compact />
+        ))}
+      </div>
+    )
+  }
+</div>

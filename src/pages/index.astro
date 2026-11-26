@@ -76,7 +76,12 @@ const jsonLd = [
 			addressRegion: "Alsace",
 			addressCountry: "FR",
 		},
-		areaServed: "FR",
+		areaServed: [
+			{ "@type": "City", name: "Mulhouse" },
+			{ "@type": "AdministrativeArea", name: "Haut-Rhin" },
+			{ "@type": "AdministrativeArea", name: "Alsace" },
+			{ "@type": "Country", name: "France" },
+		],
 		makesOffer: services.map((service) => ({
 			"@type": "Offer",
 			itemOffered: {
@@ -90,8 +95,8 @@ const jsonLd = [
 ---
 
 <Layout
-  title="Codelsior · Développeur freelance senior augmenté par l'IA"
-  description={`Logiciel sur mesure, automatisation IA, souveraineté numérique, renfort d'équipe et infrastructure : le projet que vous repoussez devient réalisable, ${site.savingsClaim}. Freelance en Alsace, partout en France.`}
+  title="Codelsior · Développeur freelance et automatisation IA en Alsace"
+  description="Automatisation et formation IA pour les TPE et PME d'Alsace, logiciel sur mesure, souveraineté numérique et renfort d'équipe. Basé à Mulhouse, dans le Haut-Rhin, et partout en France."
   jsonLd={jsonLd}
 >
   <div

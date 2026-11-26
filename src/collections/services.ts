@@ -57,6 +57,8 @@ export interface Service {
 	comparison?: { rows: ComparisonRow[]; method: string };
 	showMaintenance?: boolean;
 	why: string[];
+	// Zone desservie annoncée dans le JSON-LD de la landing (défaut : FR).
+	areaServed?: string;
 	faq: { q: string; a: string }[];
 	calEvent: string;
 	ctaTitle: string;
@@ -230,6 +232,7 @@ export const services: Service[] = [
 				a: "C'est possible aussi : back-office, portail client, remplacement d'un vieux tableur. C'est l'objet de mon service « logiciel sur mesure et automatisation IA ».",
 			},
 		],
+		areaServed: "Alsace, France",
 		calEvent: "diagnostic-pme",
 		ctaTitle: "Une demi-journée pour savoir quoi automatiser.",
 	},

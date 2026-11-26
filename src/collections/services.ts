@@ -32,6 +32,9 @@ export interface Service {
 	// Service de second plan : présenté en carte compacte sous la grille
 	// principale, et en fin de liste dans le menu et le footer.
 	secondary?: boolean;
+	// Service mis en avant : bloc dédié sur la home (`pme-highlight.astro`)
+	// et carte pleine largeur en tête de la page /services.
+	featured?: boolean;
 	menuLabel: string;
 	cardText: string;
 	icon: string;
@@ -43,11 +46,19 @@ export interface Service {
 	pains: Item[];
 	deliverables: Item[];
 	process: Item[];
+	// Paragraphes libres insérés après les livrables (ex. « pourquoi sur
+	// site », « sortir des licences propriétaires »).
+	prose?: Item[];
+	// Une offre de démarrage unique, ou plusieurs offres à prix fixe
+	// présentées en grille (`offer-grid.astro`).
 	offer?: Offer;
+	offers?: Offer[];
 	availability?: string[];
 	comparison?: { rows: ComparisonRow[]; method: string };
 	showMaintenance?: boolean;
 	why: string[];
+	// Zone desservie annoncée dans le JSON-LD de la landing (défaut : FR).
+	areaServed?: string;
 	faq: { q: string; a: string }[];
 	calEvent: string;
 	ctaTitle: string;
@@ -72,6 +83,159 @@ const discoveryCall: Item = {
 };
 
 export const services: Service[] = [
+	{
+		slug: "pme-alsace",
+		featured: true,
+		menuLabel: "Pour les TPE et PME d'Alsace",
+		cardText:
+			"Je viens dans vos locaux une demi-journée, je repère ce qui vous fait perdre du temps, et je l'automatise. Prix fixes, annoncés d'avance.",
+		icon: icons.bolt,
+		seoTitle:
+			"Automatisation et formation IA pour les TPE et PME d'Alsace | Codelsior",
+		metaDescription:
+			"Diagnostic IA sur site à 450 € HT, formation d'une journée à 900 € HT, chantier d'automatisation de 1 500 à 3 000 € HT. Je me déplace à Mulhouse, dans le Haut-Rhin et partout en Alsace pour automatiser ce qui vous fait perdre du temps.",
+		headline:
+			"Je viens chez vous, je repère ce qui vous fait perdre du temps, et je l'automatise.",
+		subheadline:
+			"Vos équipes passent des heures sur des tâches que personne n'aime faire : ressaisir des devis, relancer des factures impayées, trier des mails, recopier les mêmes informations d'un logiciel à l'autre. Je me déplace à Mulhouse, dans le Haut-Rhin et partout en Alsace, une demi-journée, et je vous dis exactement quoi automatiser en premier — avec un prix fixe, annoncé d'avance.",
+		audience: "Dirigeants de TPE et de PME d'Alsace, de 3 à 50 salariés",
+		pains: [
+			{
+				title: "Tout le monde est débordé",
+				text: "Vos équipes travaillent beaucoup, mais une partie de leur journée part dans des tâches qui n'apportent rien à personne.",
+			},
+			{
+				title: "L'IA, tout le monde en parle",
+				text: "On vous répète que ça fait gagner du temps, sans jamais vous montrer ce que ça donnerait chez vous, concrètement.",
+			},
+			{
+				title: "Les devis informatiques font peur",
+				text: "Vous avez déjà reçu une proposition à 20 000 € pour un projet que personne ne vous a vraiment expliqué.",
+			},
+			{
+				title: "Les logiciels coûtent de plus en plus cher",
+				text: "Chaque année les abonnements augmentent, et vous payez des fonctions que personne n'utilise.",
+			},
+		],
+		deliverables: [
+			{
+				title: "Les devis et les commandes",
+				text: "Un mail ou un PDF arrive, les informations se retrouvent dans votre outil de gestion, sans que personne ne les recopie.",
+			},
+			{
+				title: "Les relances de factures impayées",
+				text: "Les retards sont repérés, les relances préparées et envoyées au bon moment. Vous validez, c'est tout.",
+			},
+			{
+				title: "Le tri des mails et des demandes",
+				text: "Les demandes clients sont classées et une réponse est préparée. Votre équipe relit au lieu de rédiger.",
+			},
+			{
+				title: "Les ressaisies entre logiciels",
+				text: "Devis, comptabilité, boutique en ligne, tableur : les informations circulent seules, sans export ni copier-coller.",
+			},
+		],
+		process: [
+			{
+				title: "Un appel de 30 minutes, gratuit",
+				text: "Vous me racontez votre quotidien. Si je ne peux rien vous apporter, je vous le dis tout de suite.",
+			},
+			{
+				title: "Une demi-journée dans vos locaux",
+				text: "Je regarde travailler vos équipes, je note ce qui se répète et je compte les heures que ça coûte.",
+			},
+			{
+				title: "Une liste de priorités chiffrée",
+				text: "Trois à cinq pistes classées par temps gagné, avec un prix fixe pour chacune. Vous décidez ensuite, ou pas.",
+			},
+			{
+				title: "On automatise, en 2 à 4 jours",
+				text: "Un processus à la fois, livré et réellement utilisé par vos équipes, avec un mois de suivi.",
+			},
+		],
+		prose: [
+			{
+				title: "Pourquoi je viens sur site",
+				text: "Une visio ne montre pas votre réalité. Dans vos locaux, je vois les vrais gestes : le classeur à côté de l'écran, le tableur que l'on garde « parce que le logiciel ne sait pas le faire », les trois outils ouverts en même temps, la personne qui recopie à la main ce qu'une autre a déjà saisi. En une demi-journée sur place, je repère des choses que personne ne m'aurait décrites au téléphone — tout simplement parce qu'elles sont devenues normales. Et vos équipes me parlent plus librement devant leur écran que dans une réunion.",
+			},
+			{
+				title: "Payer moins de licences, avec de l'open source",
+				text: "Beaucoup de TPE et de PME paient chaque mois des abonnements pour des logiciels qu'elles utilisent à 20 %. Quand c'est pertinent, je vous montre l'équivalent open source : gestion, boutique en ligne, partage de fichiers, messagerie d'équipe. Les logiciels sont sans licence, il reste à les héberger et à les maintenir — je chiffre le coût réel pour que vous compariez honnêtement, plutôt que de remplacer un abonnement par un autre. Vos données restent en France ou en Europe.",
+			},
+		],
+		offers: [
+			{
+				name: "Diagnostic IA sur site",
+				duration: "½ journée",
+				price: "450 €",
+				includes: [
+					"Une demi-journée dans vos locaux, en Alsace",
+					"Observation de vos tâches répétitives, avec vos équipes",
+					"Liste de 3 à 5 priorités chiffrées en heures gagnées",
+					"Un prix fixe annoncé pour chaque automatisation proposée",
+				],
+				note: "Montant déduit si vous me confiez le premier chantier d'automatisation.",
+			},
+			{
+				name: "Formation IA sur site",
+				duration: "1 journée",
+				price: "900 €",
+				includes: [
+					"Une journée sur site, pour 4 à 8 personnes",
+					"Des cas concrets tirés de votre métier, pas des exemples génériques",
+					"Les bons usages, et ce qu'il ne faut jamais confier à une IA",
+					"Un mémo écrit remis à chaque participant",
+				],
+			},
+			{
+				name: "Chantier d'automatisation",
+				duration: "2 à 4 jours",
+				price: "1 500 à 3 000 €",
+				priceDetail: "selon la complexité du processus",
+				includes: [
+					"Un processus ciblé : saisie, relances, ressaisies entre logiciels",
+					"Livré en 2 à 4 jours",
+					"Vos équipes formées à l'utiliser",
+					"Un mois de suivi inclus",
+				],
+			},
+		],
+		why: [
+			"15 ans d'expérience en développement logiciel, dont un ERP déployé en usine chez PSA.",
+			"Le code livré vous appartient : vous n'êtes prisonnier d'aucun prestataire.",
+			"Hébergement en France ou en Europe, et vos données ne partent pas ailleurs.",
+			"Un interlocuteur unique, installé en Alsace, qui se déplace chez vous.",
+		],
+		faq: [
+			{
+				q: "Je ne suis pas du tout technique, c'est un problème ?",
+				a: "Non, c'est même le cas le plus fréquent. Je parle de votre métier et de votre temps, pas de technique. Vous n'avez rien à préparer avant ma visite.",
+			},
+			{
+				q: "Vous vous déplacez où ?",
+				a: "À Mulhouse et dans tout le Haut-Rhin sans frais de déplacement, et partout en Alsace (Colmar, Strasbourg) ainsi qu'à Bâle et Fribourg-en-Brisgau.",
+			},
+			{
+				q: "Combien de temps avant de voir un gain ?",
+				a: "Le diagnostic vous donne des priorités chiffrées le jour même. Le premier chantier d'automatisation est livré en 2 à 4 jours.",
+			},
+			{
+				q: "Est-ce que l'IA va remplacer mes salariés ?",
+				a: "Ce n'est pas l'objectif, et ce n'est pas ce que je vends. J'enlève les tâches ingrates — la saisie, la recopie, les relances — pour que vos équipes passent leur temps sur le client et le métier.",
+			},
+			{
+				q: "Nos données sont-elles en sécurité ?",
+				a: "Rien ne part sans votre accord. Pour les informations sensibles, j'utilise des modèles européens ou open source hébergés en Europe, et je prévois une validation humaine là où une erreur coûte cher.",
+			},
+			{
+				q: "Et si on a besoin d'un vrai logiciel, pas juste d'automatisation ?",
+				a: "C'est possible aussi : back-office, portail client, remplacement d'un vieux tableur. C'est l'objet de mon service « logiciel sur mesure et automatisation IA ».",
+			},
+		],
+		areaServed: "Alsace, France",
+		calEvent: "diagnostic-pme",
+		ctaTitle: "Une demi-journée pour savoir quoi automatiser.",
+	},
 	{
 		slug: "logiciel-sur-mesure-automatisation-ia",
 		aliases: ["projet-sur-mesure-ia", "automatisation-ia"],
@@ -496,7 +660,11 @@ export function serviceUrl(service: Service) {
 	return `/services/${service.slug}`;
 }
 
-export const primaryServices = services.filter((service) => !service.secondary);
+export const featuredService = services.find((service) => service.featured);
+
+export const primaryServices = services.filter(
+	(service) => !service.secondary && !service.featured,
+);
 
 export const secondaryServices = services.filter(
 	(service) => service.secondary,

@@ -1,0 +1,61 @@
+---
+// Bloc d'appel de l'offre TPE/PME, affiché sur la home juste après le hero.
+// Les offres et les prix viennent du service `featured` de la collection.
+import { featuredService, serviceUrl } from "../../collections/services";
+import BookingButton from "./booking-button.astro";
+---
+
+{
+  featuredService && (
+    <section class="relative z-20 max-w-4xl mx-auto mt-20 px-7 lg:px-0">
+      <div class="relative p-8 overflow-hidden bg-white border-2 rounded-3xl border-brand dark:border-accent dark:bg-neutral-950 sm:p-10">
+        <div class="absolute rounded-full -top-24 -right-24 w-72 h-72 bg-accent/10 blur-3xl" />
+        <div class="relative">
+          <p class="inline-flex items-center gap-2 px-3 py-1 mb-5 text-xs font-semibold rounded-full bg-brand/5 text-brand dark:bg-accent/10 dark:text-accent">
+            Nouveau · pour les TPE et PME d'Alsace
+          </p>
+          <h2 class="max-w-2xl text-2xl font-bold leading-tight tracking-tight sm:text-3xl text-neutral-900 dark:text-neutral-100">
+            {featuredService.headline}
+          </h2>
+          <p class="max-w-2xl mt-4 text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
+            Vos équipes perdent des heures à ressaisir des devis, relancer des
+            factures et trier des mails. Je passe une demi-journée dans vos
+            locaux, à Mulhouse ou ailleurs en Alsace, et je repars avec la liste
+            de ce qui peut être automatisé — chiffrée en heures gagnées.
+          </p>
+          {featuredService.offers && (
+            <dl class="grid grid-cols-1 gap-5 mt-8 sm:grid-cols-3">
+              {featuredService.offers.map((offer) => (
+                <div class="pl-4 border-l-2 border-accent">
+                  <dt class="text-xl font-bold text-neutral-900 dark:text-white">
+                    {offer.price}
+                    <span class="text-sm font-medium text-neutral-500">
+                      {" "}
+                      HT
+                    </span>
+                  </dt>
+                  <dd class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    {offer.name} · {offer.duration}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          )}
+          <div class="flex flex-col gap-3 mt-8 sm:flex-row sm:items-center">
+            <a
+              href={serviceUrl(featuredService)}
+              class="inline-flex items-center justify-center px-5 py-3 text-sm font-semibold text-white duration-300 ease-out border rounded-full bg-brand border-brand hover:bg-brand-light hover:border-brand-light dark:bg-accent dark:text-brand dark:border-accent dark:hover:bg-white dark:hover:border-white"
+            >
+              Découvrir l'offre PME
+            </a>
+            <BookingButton
+              event={featuredService.calEvent}
+              text="Réserver un échange de 30 min"
+              variant="secondary"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

@@ -61,7 +61,7 @@ const jsonLd = [
 		name: service.menuLabel,
 		description: service.metaDescription,
 		url: pageUrl,
-		areaServed: "FR",
+		areaServed: service.areaServed ?? "FR",
 		provider: {
 			"@type": "ProfessionalService",
 			name: site.name,

@@ -6,8 +6,9 @@ import Separator from "../components/home/separator.astro";
 import Writings from "../components/home/writings.astro";
 import BookingButton from "../components/landing/booking-button.astro";
 import CtaBanner from "../components/landing/cta-banner.astro";
-import Families from "../components/landing/families.astro";
+import ServicesGrid from "../components/landing/services-grid.astro";
 import ItemGrid from "../components/landing/item-grid.astro";
+import PmeHighlight from "../components/landing/pme-highlight.astro";
 import SectionTitle from "../components/landing/section-title.astro";
 import Testimonials from "../components/landing/testimonials.astro";
 import { site } from "../config";
@@ -75,7 +76,12 @@ const jsonLd = [
 			addressRegion: "Alsace",
 			addressCountry: "FR",
 		},
-		areaServed: "FR",
+		areaServed: [
+			{ "@type": "City", name: "Mulhouse" },
+			{ "@type": "AdministrativeArea", name: "Haut-Rhin" },
+			{ "@type": "AdministrativeArea", name: "Alsace" },
+			{ "@type": "Country", name: "France" },
+		],
 		makesOffer: services.map((service) => ({
 			"@type": "Offer",
 			itemOffered: {
@@ -89,8 +95,8 @@ const jsonLd = [
 ---
 
 <Layout
-  title="Codelsior · Développeur freelance senior augmenté par l'IA"
-  description={`Logiciel sur mesure, automatisation IA, souveraineté numérique, renfort d'équipe et DevOps : le projet que vous repoussez devient réalisable, ${site.savingsClaim}. Freelance en Alsace, partout en France.`}
+  title="Codelsior · Développeur freelance et automatisation IA en Alsace"
+  description="Automatisation et formation IA pour les TPE et PME d'Alsace, logiciel sur mesure, souveraineté numérique et renfort d'équipe. Basé à Mulhouse, dans le Haut-Rhin, et partout en France."
   jsonLd={jsonLd}
 >
   <div
@@ -205,13 +211,15 @@ const jsonLd = [
     </div>
   </div>
 
+  <PmeHighlight />
+
   <Separator text="Mes services" />
   <section id="services" class="relative z-20 max-w-4xl mx-auto scroll-mt-24 px-7 lg:px-0">
     <SectionTitle
       title="Comment je peux vous aider"
-      description="Cinq services, trois familles. Chacun commence par un appel gratuit et une offre de démarrage à prix fixe."
+      description="Au-delà de l'offre dédiée aux TPE et PME d'Alsace : le logiciel sur mesure, la souveraineté numérique et le renfort d'équipe. Chaque mission commence par un appel gratuit et une offre de démarrage à prix fixe."
     />
-    <Families />
+    <ServicesGrid />
   </section>
 
   <Separator text="Pourquoi l'IA change tout" />
@@ -222,7 +230,7 @@ const jsonLd = [
     />
     <ItemGrid items={aiPillars} />
     <a
-      href="/services/projet-sur-mesure-ia"
+      href="/services/logiciel-sur-mesure-automatisation-ia"
       class="inline-block mt-6 text-sm font-semibold text-brand dark:text-accent hover:underline"
     >
       Voir la comparaison avec une agence →

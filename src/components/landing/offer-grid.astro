@@ -31,16 +31,27 @@ const {
         <p class="text-xs font-semibold tracking-widest uppercase text-accent-dark dark:text-accent">
           {offer.duration}
         </p>
-        <h3 class="mt-2 text-lg font-bold text-neutral-900 dark:text-neutral-100">
+        <h3 class="mt-2 text-lg font-bold text-neutral-900 md:min-h-14 dark:text-neutral-100">
           {offer.name}
         </h3>
-        <p class="mt-4 text-3xl font-bold text-neutral-900 dark:text-white">
+        <p
+          class:list={[
+            "mt-4 font-bold whitespace-nowrap text-neutral-900 dark:text-white",
+            offer.price.length > 12
+              ? "text-xl"
+              : offer.price.length > 8
+                ? "text-2xl"
+                : "text-3xl",
+          ]}
+        >
           {offer.price}
           <span class="text-sm font-medium text-neutral-500"> HT</span>
         </p>
-        <p class="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-          {offer.priceDetail ?? "prix fixe, annoncé d'avance"}
-        </p>
+        {offer.priceDetail && (
+          <p class="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+            {offer.priceDetail}
+          </p>
+        )}
         <CheckList items={offer.includes} class="mt-5 grow" />
         {offer.note && (
           <p class="mt-4 text-xs font-medium text-accent-dark dark:text-accent">

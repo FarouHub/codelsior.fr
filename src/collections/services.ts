@@ -175,7 +175,7 @@ export const services: Service[] = [
 				note: "Montant déduit si vous me confiez le premier chantier d'automatisation.",
 			},
 			{
-				name: "Formation IA d'une journée",
+				name: "Formation IA sur site",
 				duration: "1 journée",
 				price: "900 €",
 				includes: [
@@ -186,7 +186,7 @@ export const services: Service[] = [
 				],
 			},
 			{
-				name: "Chantier d'automatisation à prix fixe",
+				name: "Chantier d'automatisation",
 				duration: "2 à 4 jours",
 				price: "1 500 à 3 000 €",
 				priceDetail: "selon la complexité du processus",

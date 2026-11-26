@@ -6,9 +6,11 @@ interface Props {
 	// Carte compacte, sur une ligne : utilisée pour les services de second
 	// plan (`secondary`) sous la grille principale.
 	compact?: boolean;
+	// Carte pleine largeur et bordure pleine : service mis en avant.
+	featured?: boolean;
 }
 
-const { service, compact = false } = Astro.props;
+const { service, compact = false, featured = false } = Astro.props;
 ---
 
 {
@@ -44,7 +46,12 @@ const { service, compact = false } = Astro.props;
   ) : (
     <a
       href={serviceUrl(service)}
-      class="relative flex flex-col h-full p-6 duration-300 ease-out bg-white border border-dashed group rounded-2xl border-neutral-300 dark:bg-neutral-950 dark:border-neutral-700 hover:-translate-y-1 hover:border-solid hover:border-brand dark:hover:border-accent hover:shadow-lg"
+      class:list={[
+        "relative flex flex-col h-full p-6 duration-300 ease-out bg-white border group rounded-2xl dark:bg-neutral-950 hover:-translate-y-1 hover:border-solid hover:border-brand dark:hover:border-accent hover:shadow-lg",
+        featured
+          ? "border-2 border-brand dark:border-accent"
+          : "border-dashed border-neutral-300 dark:border-neutral-700",
+      ]}
     >
       <span class="flex items-center justify-center w-10 h-10 mb-4 rounded-xl bg-brand/5 text-brand dark:bg-accent/10 dark:text-accent">
         <svg

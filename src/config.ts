@@ -18,6 +18,15 @@ export const site = {
 // Prise de RDV : un type d'événement Cal.com par service. Remplacer
 // `base` par l'URL du compte Cal.com une fois créé, et garder des slugs
 // d'événements identiques à ceux configurés dans Cal.com.
+//
+// Événements attendus côté Cal.com (le `calEvent` d'un service doit porter
+// le même slug) :
+//   decouverte        Appel découverte · 30 min
+//   diagnostic-pme    Diagnostic PME – échange de 30 min · offre TPE/PME
+//                     d'Alsace (à créer dans Cal.com)
+//   projet-sur-mesure Logiciel sur mesure et automatisation IA · 30 min
+//   souverainete      Souveraineté et open source · 30 min
+//   renfort           Renfort et infrastructure · 30 min
 export const booking = {
 	base: "https://cal.com/codelsior",
 	defaultEvent: "decouverte",

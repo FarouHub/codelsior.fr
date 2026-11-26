@@ -8,6 +8,7 @@ import BookingButton from "../components/landing/booking-button.astro";
 import CtaBanner from "../components/landing/cta-banner.astro";
 import ServicesGrid from "../components/landing/services-grid.astro";
 import ItemGrid from "../components/landing/item-grid.astro";
+import PmeHighlight from "../components/landing/pme-highlight.astro";
 import SectionTitle from "../components/landing/section-title.astro";
 import Testimonials from "../components/landing/testimonials.astro";
 import { site } from "../config";
@@ -205,11 +206,13 @@ const jsonLd = [
     </div>
   </div>
 
+  <PmeHighlight />
+
   <Separator text="Mes services" />
   <section id="services" class="relative z-20 max-w-4xl mx-auto scroll-mt-24 px-7 lg:px-0">
     <SectionTitle
       title="Comment je peux vous aider"
-      description="Trois façons de travailler ensemble. Chacune commence par un appel gratuit et une offre de démarrage à prix fixe."
+      description="Au-delà de l'offre dédiée aux TPE et PME d'Alsace : le logiciel sur mesure, la souveraineté numérique et le renfort d'équipe. Chaque mission commence par un appel gratuit et une offre de démarrage à prix fixe."
     />
     <ServicesGrid />
   </section>
